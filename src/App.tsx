@@ -1,8 +1,12 @@
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundaryFallback } from './components';
 import './App.css';
 
-export default function App() {
+function App() {
   return (
-    <div className="App">
-    </div>
+    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+    </ErrorBoundary>
   );
 }
+
+export default App;
