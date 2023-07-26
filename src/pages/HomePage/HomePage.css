@@ -1,0 +1,12 @@
+.container {
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 10fr 1fr;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

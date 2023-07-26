@@ -1,4 +1,3 @@
-import { json } from 'stream/consumers';
 import { Film, Species, Starship, Vehicle, ChildProxy } from '.';
 
 export interface PersonResponse {

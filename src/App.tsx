@@ -10,7 +10,7 @@ function App() {
    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/info' element={<InfoPage />} />
+        <Route path='/info/:name' element={<InfoPage />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </ErrorBoundary>
