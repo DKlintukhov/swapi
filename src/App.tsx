@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+   <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/info' element={<InfoPage />} />

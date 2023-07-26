@@ -5,3 +5,4 @@ export * from './Planet';
 export * from './Species';
 export * from './Starship';
 export * from './Vehicle';
+export * from './Page';
