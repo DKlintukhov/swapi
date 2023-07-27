@@ -29,7 +29,7 @@ export const personMock: Person = {
   gender: 'male',
   hairColor: 'brown',
   height: 180,
-  homeworld: 'planet1',
+  homeworld: { url: personResponseMock.homeworld, child: null },
   mass: 75,
   name: 'John Doe',
   skinColor: 'fair',

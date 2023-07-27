@@ -11,7 +11,9 @@ import {
   transformSpeciesResponse,
   transformStarshipResponse,
   transformVehicleResponse,
-  transformPageResponse
+  transformPageResponse,
+  Planet,
+  transformPlanetResponse
 } from '../../data-models';
 
 export const swAPI = createApi({
@@ -31,6 +33,12 @@ export const swAPI = createApi({
         url: `people/?search=${search}`,
       }),
       transformResponse: (resp: PageResponse) => transformPageResponse(resp).people[0],
+    }),
+    getPlanet: query<Planet, number>({
+      query: (num: number) => ({
+        url: `planets/${num}/`,
+      }),
+      transformResponse: transformPlanetResponse,
     }),
     getStarship: query<Starship, number>({
       query: (num: number) => ({
@@ -62,8 +70,9 @@ export const swAPI = createApi({
 export const {
   useGetPageQuery,
   useGetPersonQuery,
+  useGetPlanetQuery,
   useGetStarshipQuery,
   useGetFilmQuery,
   useGetSpeciesQuery,
-  useGetVehicleQuery
+  useGetVehicleQuery,
 } = swAPI;

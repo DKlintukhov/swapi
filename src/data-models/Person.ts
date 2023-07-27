@@ -1,4 +1,4 @@
-import { Film, Species, Starship, Vehicle, ChildProxy } from '.';
+import { Film, Species, Starship, Vehicle, ChildProxy, Planet } from '.';
 
 export interface PersonResponse {
   birth_year: string;
@@ -26,7 +26,7 @@ export interface Person {
   gender: string;
   hairColor: string;
   height: number;
-  homeworld: string;
+  homeworld: ChildProxy<Planet>;
   mass: number;
   name: string;
   skinColor: string;
@@ -44,7 +44,7 @@ export const transformPersonResponse = (resp: PersonResponse): Person => (
     gender: resp.gender,
     hairColor: resp.hair_color,
     height: resp.height,
-    homeworld: resp.homeworld,
+    homeworld: { url: resp.homeworld, child: null },
     mass: resp.mass,
     name: resp.name,
     skinColor: resp.skin_color,

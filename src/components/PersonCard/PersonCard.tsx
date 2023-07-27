@@ -34,38 +34,16 @@ export const PersonCard = ({ person, onSubmit }: PersonCardProps) => {
   }
 
   return (
-    <Card sx={{ maxWidth: 245 }}>
-      <CardContent>
-        <form role="form" onSubmit={handleSubmit(submitHandle)} className="person-card__form">
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Name" variant="outlined" {...register("name", { required: true, maxLength: 32 })} error={!!errors.name} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Gender" variant="outlined" {...register("gender", { required: true, maxLength: 32 })} error={!!errors.gender} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Birth Year:" variant="outlined" {...register("birthYear", { required: true, maxLength: 32 })} error={!!errors.birthYear} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Height:" variant="outlined" type="number" {...register("height", { required: true, maxLength: 32 })} error={!!errors.height} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Mass:" variant="outlined" type="number" {...register("mass", { required: true, maxLength: 32 })} error={!!errors.height} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Eye Color:" variant="outlined" {...register("eyeColor", { required: true, maxLength: 32 })} error={!!errors.eyeColor} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Hair Color:" variant="outlined" {...register("hairColor", { required: true, maxLength: 32 })} error={!!errors.hairColor} />
-          </Typography>
-          <Typography gutterBottom variant="h3" >
-            <TextField label="Skin Color:" variant="outlined" {...register("skinColor", { required: true, maxLength: 32 })} error={!!errors.skinColor} />
-          </Typography>
-          <CardActions>
-            <FormActionBtns handleReset={handleReset} handleCancel={handleReset}></FormActionBtns>
-          </CardActions>
-        </form>
-      </CardContent>
-    </Card>
+    <form onSubmit={handleSubmit(submitHandle)} className="person-card__form">
+      <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 32 })} error={!!errors.name} />
+      <TextField label="Gender:" variant="outlined" {...register("gender", { required: true, maxLength: 32 })} error={!!errors.gender} />
+      <TextField label="Birth Year:" variant="outlined" {...register("birthYear", { required: true, maxLength: 32 })} error={!!errors.birthYear} />
+      <TextField label="Height:" variant="outlined" type="number" {...register("height", { required: true, maxLength: 32 })} error={!!errors.height} />
+      <TextField label="Mass:" variant="outlined" type="number" {...register("mass", { required: true, maxLength: 32 })} error={!!errors.height} />
+      <TextField label="Eye Color:" variant="outlined" {...register("eyeColor", { required: true, maxLength: 32 })} error={!!errors.eyeColor} />
+      <TextField label="Hair Color:" variant="outlined" {...register("hairColor", { required: true, maxLength: 32 })} error={!!errors.hairColor} />
+      <TextField label="Skin Color:" variant="outlined" {...register("skinColor", { required: true, maxLength: 32 })} error={!!errors.skinColor} />
+      <FormActionBtns handleReset={handleReset} handleCancel={handleReset}></FormActionBtns>
+    </form>
   )
 }

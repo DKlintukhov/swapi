@@ -10,8 +10,8 @@ describe('PersonCard', () => {
   });
 
   it('should render the person card with correct values', () => {
-    const nameField = screen.getByLabelText('Name');
-    const genderField = screen.getByLabelText('Gender');
+    const nameField = screen.getByLabelText('Name:');
+    const genderField = screen.getByLabelText('Gender:');
     const birthYearField = screen.getByLabelText('Birth Year:');
     const heightField = screen.getByLabelText('Height:');
     const massField = screen.getByLabelText('Mass:');
@@ -30,8 +30,8 @@ describe('PersonCard', () => {
   });
 
   it('should call onSubmit when the form is submitted with updated values', async () => {
-    const nameField = screen.getByLabelText('Name');
-    const genderField = screen.getByLabelText('Gender');
+    const nameField = screen.getByLabelText('Name:');
+    const genderField = screen.getByLabelText('Gender:');
     const birthYearField = screen.getByLabelText('Birth Year:');
     const heightField = screen.getByLabelText('Height:');
     const massField = screen.getByLabelText('Mass:');
@@ -64,7 +64,7 @@ describe('PersonCard', () => {
   });
 
   it('should reset the form when the reset button is clicked', () => {
-    const nameField = screen.getByLabelText('Name');
+    const nameField = screen.getByLabelText('Name:');
     const resetButton = screen.getByText('Reset');
     fireEvent.change(nameField, { target: { value: 'Updated Name' } });
     fireEvent.click(resetButton);
