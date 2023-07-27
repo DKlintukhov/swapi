@@ -1,27 +1,25 @@
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import { Person } from '../../data-models';
-import { Link } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
 import { Fragment } from 'react';
 import './PeopleMenu.css';
 
 interface PeopleMenuProps {
   people: Person[];
+  onPersonSelect: (person: Person) => void;
 }
 
-export const PeopleMenu = ({ people }: PeopleMenuProps) => {
+export const PeopleMenu = ({ people, onPersonSelect }: PeopleMenuProps) => {
   return (
-    <List component='nav'>
-      {people.map(({ name, birthYear }, idx) => (
+    <List component="nav">
+      {people.map((person, idx) => (
         <Fragment key={idx}>
           <ListItem disablePadding >
-            <ListItemButton>
+            <ListItemButton onClick={() => onPersonSelect(person)}>
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
-              <Link to={`/info/${name}`} className='link'>
-                <ListItemText primary={name} secondary={`Planet: ${birthYear}`} />
-              </Link >
+              <ListItemText primary={person.name} secondary={`Birth Year: ${person.birthYear}`} />
             </ListItemButton>
           </ListItem>
           <Divider />
