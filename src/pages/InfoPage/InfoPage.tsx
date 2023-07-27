@@ -1,15 +1,15 @@
 import { FilmCard, PersonCard, PlanetCard, StarshipCard } from '../../components';
 import { useSelector } from 'react-redux'
-import { RootState } from '../../store';
-import { Person } from '../../data-models';
+import { RootState, root } from '../../store';
 import { Container } from '@mui/system';
 import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/material';
 import { VehicleCard } from '../../components/VehicleCard/VehicleCard';
 import { SpeciesCard } from '../../components/SpeciesCard/SpeciesCard';
+import { Person } from '../../data-models';
 import './InfoPage.css';
 
 export const InfoPage = () => {
-  const person = useSelector(({ person }: RootState) => person.person as Person);
+  const person = useSelector((state: RootState) => state[root.name].person as Person);
 
   return (
     <Container>

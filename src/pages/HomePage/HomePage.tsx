@@ -1,10 +1,9 @@
 import { CircularProgress, Pagination } from '@mui/material'
 import { useGetPageQuery } from '../../store/swAPI/swAPI'
-import { useState } from 'react';
 import { PeopleMenu } from '../../components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Person } from '../../data-models';
-import { selectPerson } from '../../store';
+import { RootState, root, selectPage, selectPerson } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
@@ -12,9 +11,13 @@ export const HomePage = () => {
   const peoplePerPage = 10;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [pageNum, setPage] = useState(1);
+  const pageNum = useSelector((state: RootState) => state[root.name].page);
   const { isLoading, isFetching, data: page, } = useGetPageQuery(pageNum);
-  const handleChange = (_: React.ChangeEvent<unknown>, page: number) => setPage(page);
+
+  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
+    dispatch(selectPage(page));
+  };
+
   const personSelectedHandler = (person: Person) => {
     dispatch(selectPerson(person));
     navigate(`/info/${person.name}`);
@@ -30,10 +33,11 @@ export const HomePage = () => {
       <div>
         {!isLoading && page &&
           <Pagination
+            defaultPage={pageNum}
             count={Math.ceil(page.total / peoplePerPage)}
             variant="outlined"
             shape='rounded'
-            onChange={handleChange}
+            onChange={handlePageChange}
           />}
       </div>
     </div>

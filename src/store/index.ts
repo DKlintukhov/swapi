@@ -2,20 +2,25 @@ import { PayloadAction, configureStore, createSlice } from '@reduxjs/toolkit';
 import { swAPI } from './swAPI/swAPI';
 import { Person } from '../data-models';
 
-export interface SelectedPersonState {
+export interface State {
   person: Person | null;
+  page: number;
 }
 
-const initialState: SelectedPersonState = {
+const initialState: State = {
   person: null,
+  page: 1,
 }
 
-export const selectedPersonSlice = createSlice({
-  name: 'person',
+export const root = createSlice({
+  name: 'root',
   initialState,
   reducers: {
-    selectPerson: (state, action: PayloadAction<Person>) => {
-      state.person = action.payload;
+    selectPerson: (state, { payload }: PayloadAction<Person>) => {
+      state.person = payload;
+    },
+    selectPage: (state, { payload }: PayloadAction<number>) => {
+      state.page = payload;
     }
   },
 })
@@ -23,10 +28,10 @@ export const selectedPersonSlice = createSlice({
 export const store = configureStore({
   reducer: {
     [swAPI.reducerPath]: swAPI.reducer,
-    [selectedPersonSlice.name]: selectedPersonSlice.reducer,
+    [root.name]: root.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(swAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export const { selectPerson } = selectedPersonSlice.actions;
+export const { selectPerson, selectPage } = root.actions;
