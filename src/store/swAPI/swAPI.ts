@@ -42,7 +42,7 @@ export const swAPI = createApi({
     }),
     getStarship: query<Starship, number>({
       query: (num: number) => ({
-        url: `starhips/${num}/`
+        url: `starships/${num}/`
       }),
       transformResponse: transformStarshipResponse,
     }),

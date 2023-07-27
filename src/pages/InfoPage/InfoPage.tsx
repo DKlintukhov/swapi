@@ -1,23 +1,15 @@
-import { PersonCard } from '../../components/PersonCard/PersonCard';
+import { FilmCard, PersonCard, PlanetCard, StarshipCard } from '../../components';
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store';
-import { Person, Planet } from '../../data-models';
-import { PlanetCard } from '../../components/PlanetCard/PlanetCard';
+import { Person } from '../../data-models';
 import { Container } from '@mui/system';
-import { Accordion, AccordionSummary, Typography, AccordionDetails, CircularProgress } from '@mui/material';
-import { useGetPlanetQuery } from '../../store/swAPI/swAPI';
+import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/material';
+import { VehicleCard } from '../../components/VehicleCard/VehicleCard';
+import { SpeciesCard } from '../../components/SpeciesCard/SpeciesCard';
+import './InfoPage.css';
 
 export const InfoPage = () => {
   const person = useSelector(({ person }: RootState) => person.person as Person);
-  const planetNum = +person.url.split('/').reverse()[1];
-  const { data: planet, isLoading } = useGetPlanetQuery(planetNum);
-
-  const personSaveHandle = (person: Person) => {
-    console.log('SAVE PERSON', person);
-  }
-  const planetSaveHandle = (planet: Planet) => {
-    console.log('SAVE PLANET', planet);
-  }
 
   return (
     <Container>
@@ -26,7 +18,7 @@ export const InfoPage = () => {
           <Typography>{person.name}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {person && <PersonCard person={person} onSubmit={personSaveHandle}></PersonCard>}
+          {person && <PersonCard person={person}></PersonCard>}
         </AccordionDetails>
       </Accordion>
 
@@ -35,8 +27,7 @@ export const InfoPage = () => {
           <Typography>Homeworld</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {isLoading && <CircularProgress size="7rem" />}
-          {planet && <PlanetCard planet={planet} onSubmit={planetSaveHandle}></PlanetCard>}
+          {person && <PlanetCard url={person.url}></PlanetCard>}
         </AccordionDetails>
       </Accordion>
 
@@ -44,9 +35,10 @@ export const InfoPage = () => {
         <AccordionSummary>
           <Typography>Films</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          {isLoading && <CircularProgress size="7rem" />}
-          {planet && <PlanetCard planet={planet} onSubmit={planetSaveHandle}></PlanetCard>}
+        <AccordionDetails className="info-page__container">
+          {person && person.films.map(({ url }, idx) =>
+            <FilmCard key={idx} url={url} ></FilmCard>
+          )}
         </AccordionDetails>
       </Accordion>
 
@@ -54,9 +46,10 @@ export const InfoPage = () => {
         <AccordionSummary>
           <Typography>Starships</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          {isLoading && <CircularProgress size="7rem" />}
-          {planet && <PlanetCard planet={planet} onSubmit={planetSaveHandle}></PlanetCard>}
+        <AccordionDetails className="info-page__container">
+          {person && person.starships.map(({ url }, idx) =>
+            <StarshipCard key={idx} url={url}></StarshipCard>
+          )}
         </AccordionDetails>
       </Accordion >
 
@@ -64,9 +57,10 @@ export const InfoPage = () => {
         <AccordionSummary>
           <Typography>Species</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          {isLoading && <CircularProgress size="7rem" />}
-          {planet && <PlanetCard planet={planet} onSubmit={planetSaveHandle}></PlanetCard>}
+        <AccordionDetails className="info-page__container">
+          {person && person.species.map(({ url }, idx) =>
+            <SpeciesCard key={idx} url={url}></SpeciesCard>
+          )}
         </AccordionDetails>
       </Accordion >
 
@@ -74,9 +68,10 @@ export const InfoPage = () => {
         <AccordionSummary>
           <Typography>Vehicles</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          {isLoading && <CircularProgress size="7rem" />}
-          {planet && <PlanetCard planet={planet} onSubmit={planetSaveHandle}></PlanetCard>}
+        <AccordionDetails className="info-page__container">
+          {person && person.vehicles.map(({ url }, idx) =>
+            <VehicleCard key={idx} url={url}></VehicleCard>
+          )}
         </AccordionDetails>
       </Accordion >
     </Container >

@@ -18,7 +18,7 @@ const server = setupServer(
   rest.get('https://swapi.dev/api/people/', (req, res, ctx) => {
     return res(ctx.json(pageResponseMock));
   }),
-  rest.get('https://swapi.dev/api/starhips/1/', (req, res, ctx) => {
+  rest.get('https://swapi.dev/api/starships/1/', (req, res, ctx) => {
     return res(ctx.json(starshipResponseMock));
   }),
   rest.get('https://swapi.dev/api/planets/1/', (req, res, ctx) => {
