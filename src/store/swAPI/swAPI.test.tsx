@@ -1,8 +1,8 @@
 
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { useGetFilmQuery, useGetPageQuery, useGetPersonQuery, useGetSpeciesQuery, useGetStarshipQuery, useGetVehicleQuery, } from './swAPI';
-import { Film, Page, Person, Species, Starship, Vehicle } from '../../data-models';
+import { useGetFilmQuery, useGetPageQuery, useGetPersonQuery, useGetPlanetQuery, useGetSpeciesQuery, useGetStarshipQuery, useGetVehicleQuery, } from './swAPI';
+import { Film, Page, Person, Planet, Species, Starship, Vehicle } from '../../data-models';
 import { act, renderHook } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '..';
@@ -12,13 +12,17 @@ import { personMock } from '../../data-models/Person.test';
 import { filmMock, filmResponseMock } from '../../data-models/Film.test';
 import { speciesMock, speciesResponseMock } from '../../data-models/Species.test';
 import { vehicleMock, vehicleResponseMock } from '../../data-models/Vehicle.test';
+import { planetMock, planetResponseMock } from '../../data-models/Planet.test';
 
 const server = setupServer(
   rest.get('https://swapi.dev/api/people/', (req, res, ctx) => {
     return res(ctx.json(pageResponseMock));
   }),
-  rest.get('https://swapi.dev/api/starhips/1/', (req, res, ctx) => {
+  rest.get('https://swapi.dev/api/starships/1/', (req, res, ctx) => {
     return res(ctx.json(starshipResponseMock));
+  }),
+  rest.get('https://swapi.dev/api/planets/1/', (req, res, ctx) => {
+    return res(ctx.json(planetResponseMock));
   }),
   rest.get('https://swapi.dev/api/films/1/', (req, res, ctx) => {
     return res(ctx.json(filmResponseMock));
@@ -55,6 +59,16 @@ describe('swAPI', () => {
       const person: Person = result.current.data!;
       expect(person.name).toBe(personMock.name);
       expect(person.url).toBe(personMock.url);
+    });
+  });
+
+  describe('getPlanet', () => {
+    it('should return the planet with the specified number', async () => {
+      const { result } = renderHook(() => useGetPlanetQuery(1), { wrapper });
+      await act(() => result.current.refetch());
+      const planet: Planet = result.current.data!;
+      expect(planet.name).toBe(planetMock.name);
+      expect(planet.url).toBe(planetMock.url);
     });
   });
 
