@@ -1,5 +1,6 @@
 export * from './ErrorBoundaryFallback/ErrorBoundaryFallback';
 export * from './PeopleMenu/PeopleMenu';
+export * from './Form/Form';
 export * from './FormActionBtns/FormActionBtns';
 export * from './PersonCard/PersonCard';
 export * from './PlanetCard/PlanetCard';

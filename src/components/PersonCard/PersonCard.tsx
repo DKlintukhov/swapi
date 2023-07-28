@@ -1,8 +1,7 @@
 import { TextField } from '@mui/material';
 import { Person } from '../../data-models';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FormActionBtns } from '../FormActionBtns/FormActionBtns';
-import './PersonCard.css';
+import { Form } from '..';
 
 interface PersonCardProps {
   person: Person;
@@ -21,22 +20,22 @@ export function PersonCard({ person }: PersonCardProps) {
       hairColor: person.hairColor,
     },
   });
-  const onSubmit = (person: Person) => {
+  const submit = (person: Person) => {
     console.log('SAVE PERSON', person);
   }
-  const handleReset = () => reset();
-  const submitHandle: SubmitHandler<Partial<Person>> = (data) => {
+  
+  const submitHandler: SubmitHandler<Partial<Person>> = (data) => {
     const newPerson: Person = {
       ...person,
       ...data,
       height: Number(data.height),
       mass: Number(data.mass)
     };
-    onSubmit(newPerson);
+    submit(newPerson);
   }
 
   return (
-    <form onSubmit={handleSubmit(submitHandle)} className="person-card__form">
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Gender:" variant="outlined" {...register("gender", { required: true, maxLength: 64 })} error={!!errors.gender} />
       <TextField label="Birth Year:" variant="outlined" {...register("birthYear", { required: true, maxLength: 64 })} error={!!errors.birthYear} />
@@ -45,7 +44,6 @@ export function PersonCard({ person }: PersonCardProps) {
       <TextField label="Eye Color:" variant="outlined" {...register("eyeColor", { required: true, maxLength: 64 })} error={!!errors.eyeColor} />
       <TextField label="Hair Color:" variant="outlined" {...register("hairColor", { required: true, maxLength: 64 })} error={!!errors.hairColor} />
       <TextField label="Skin Color:" variant="outlined" {...register("skinColor", { required: true, maxLength: 64 })} error={!!errors.skinColor} />
-      <FormActionBtns handleReset={handleReset} handleCancel={handleReset}></FormActionBtns>
-    </form>
+    </Form>
   )
 }

@@ -1,4 +1,4 @@
-import { Alert, CircularProgress, Pagination } from '@mui/material'
+import { CircularProgress, Pagination } from '@mui/material'
 import { useGetPageQuery } from '../../store/swAPI/swAPI'
 import { PeopleMenu } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ export function HomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentPage = useSelector((state: RootState) => state[root.name].page);
-  const { isLoading, isFetching, data: page, error } = useGetPageQuery(currentPage);
+  const { isLoading, isFetching, data: page } = useGetPageQuery(currentPage);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     dispatch(setPage(page));

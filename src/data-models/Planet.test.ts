@@ -38,7 +38,7 @@ export const planetMock: Planet = {
   url: 'planet-url',
 };
 
-test('should transform PlanetResponse to Planet', () => {
+it('should transform PlanetResponse to Planet', () => {
   const transformedPlanet = transformPlanetResponse(planetResponseMock);
   expect(transformedPlanet).toEqual(planetMock);
 });

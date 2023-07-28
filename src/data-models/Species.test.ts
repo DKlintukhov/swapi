@@ -40,7 +40,7 @@ export const speciesMock: Species = {
   url: 'species-url',
 };
 
-test('should transform SpeciesResponse to Species', () => {
+it('should transform SpeciesResponse to Species', () => {
   const transformedSpecies = transformSpeciesResponse(speciesResponseMock);
   expect(transformedSpecies).toEqual(speciesMock);
 });

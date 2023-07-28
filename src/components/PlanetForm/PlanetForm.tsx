@@ -1,8 +1,7 @@
 import { TextField } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Planet } from '../../data-models';
-import { FormActionBtns } from '../FormActionBtns/FormActionBtns';
-import './PlanetForm.css';
+import { Form } from '..';
 
 interface PlanetFormProps {
   planet: Planet;
@@ -23,8 +22,8 @@ export function PlanetForm({ planet, onSubmit }: PlanetFormProps) {
       terrain: planet.terrain,
     },
   });
-  const handleReset = () => reset();
-  const submitHandle: SubmitHandler<Partial<Planet>> = (data) => {
+
+  const submitHandler: SubmitHandler<Partial<Planet>> = (data) => {
     const newPlanet: Planet = {
       ...planet,
       ...data,
@@ -33,7 +32,7 @@ export function PlanetForm({ planet, onSubmit }: PlanetFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(submitHandle)} className="planet__form">
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 32 })} error={!!errors.name} />
       <TextField label="Climate:" variant="outlined" {...register("climate", { required: true, maxLength: 32 })} error={!!errors.climate} />
       <TextField label="Diameter:" variant="outlined" {...register("diameter", { required: true, maxLength: 32 })} error={!!errors.diameter} />
@@ -43,7 +42,6 @@ export function PlanetForm({ planet, onSubmit }: PlanetFormProps) {
       <TextField label="Rotation Period:" variant="outlined" {...register("rotationPeriod", { required: true, maxLength: 32 })} error={!!errors.rotationPeriod} />
       <TextField label="Surface Water:" variant="outlined" {...register("surfaceWater", { required: true, maxLength: 32 })} error={!!errors.surfaceWater} />
       <TextField label="Terrain:" variant="outlined" {...register("terrain", { required: true, maxLength: 32 })} error={!!errors.terrain} />
-      <FormActionBtns handleReset={handleReset} handleCancel={handleReset}></FormActionBtns>
-    </form>
+    </Form>
   )
 }

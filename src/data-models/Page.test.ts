@@ -15,7 +15,7 @@ export const pageMock: Page = {
   people: [personMock],
 };
 
-test('should transform PageResponse to Page', () => {
+it('should transform PageResponse to Page', () => {
   const transformedPage = transformPageResponse(pageResponseMock);
   expect(transformedPage).toEqual(pageMock);
 });

@@ -10,7 +10,6 @@ import { Person } from '../../data-models';
 import PersonIcon from '@mui/icons-material/Person';
 import { Fragment, useEffect, useState } from 'react';
 import { useLazySearchPersonQuery } from '../../store/swAPI/swAPI';
-import { useDispatch } from 'react-redux';
 import { useDebounce } from '../../hooks';
 import { PeopleSearchDropdown } from '../PeopleSearchDropdown/PeopleSearchDropdown';
 import './PeopleMenu.css';
@@ -21,7 +20,6 @@ interface PeopleMenuProps {
 }
 
 export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
-  const dispatch = useDispatch();
   const [searchPerson, setSearchPerson] = useState('');
   const debounced = useDebounce(searchPerson);
   const [filteredPeople, setFilteredPeople] = useState(people);
@@ -35,7 +33,7 @@ export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
     if (debounced.length > 1) {
       fetchPerson(debounced);
     }
-  }, [debounced]);
+  }, [debounced, fetchPerson]);
 
   useEffect(() => {
     if (page) {

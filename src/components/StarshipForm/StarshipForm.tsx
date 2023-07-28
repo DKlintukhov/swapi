@@ -1,8 +1,7 @@
 import { TextField } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Starship } from '../../data-models';
-import { FormActionBtns } from '../FormActionBtns/FormActionBtns';
-import './StarshipForm.css';
+import { Form } from '..';
 
 interface StarshipFormProps {
   starship: Starship;
@@ -27,8 +26,8 @@ export function StarshipForm({ starship, onSubmit }: StarshipFormProps) {
       passengers: starship.passengers,
     },
   });
-  const handleReset = () => reset();
-  const submitHandle: SubmitHandler<Partial<Starship>> = (data) => {
+
+  const submitHandler: SubmitHandler<Partial<Starship>> = (data) => {
     if (starship) {
       const newStarship: Starship = {
         ...starship,
@@ -39,7 +38,7 @@ export function StarshipForm({ starship, onSubmit }: StarshipFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(submitHandle)} className="starship__form">
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Starship Class:" variant="outlined" {...register("starshipClass", { required: true, min: 1 })} error={!!errors.starshipClass} />
       <TextField label="Model:" variant="outlined" {...register("model", { required: true, maxLength: 64 })} error={!!errors.model} />
@@ -53,7 +52,6 @@ export function StarshipForm({ starship, onSubmit }: StarshipFormProps) {
       <TextField label="MGLT:" variant="outlined" {...register("MGLT", { required: true, maxLength: 64 })} error={!!errors.MGLT} />
       <TextField label="Max Atmosphering Speed:" variant="outlined" {...register("maxAtmospheringSpeed", { required: true, maxLength: 64 })} error={!!errors.maxAtmospheringSpeed} />
       <TextField label="Passengers:" variant="outlined" {...register("passengers", { required: true, maxLength: 64 })} error={!!errors.passengers} />
-      <FormActionBtns handleReset={handleReset} handleCancel={handleReset}></FormActionBtns>
-    </form>
+    </Form>
   )
 }
