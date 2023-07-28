@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-test('should be rendered', () => {
+it('should be rendered', () => {
   const result = render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>);
   expect(result).toBeTruthy();
 });

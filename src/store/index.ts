@@ -5,22 +5,27 @@ import { Person } from '../data-models';
 export interface State {
   person: Person | null;
   page: number;
+  people: Person[];
 }
 
 const initialState: State = {
   person: null,
   page: 1,
+  people: [],
 }
 
 export const root = createSlice({
   name: 'root',
   initialState,
   reducers: {
-    selectPerson: (state, { payload }: PayloadAction<Person>) => {
+    setPerson: (state, { payload }: PayloadAction<Person>) => {
       state.person = payload;
     },
-    selectPage: (state, { payload }: PayloadAction<number>) => {
+    setPage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
+    },
+    setPeople: (state, { payload }: PayloadAction<Person[]>) => {
+      state.people = payload;
     }
   },
 })
@@ -34,4 +39,4 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export const { selectPerson, selectPage } = root.actions;
+export const { setPerson, setPage, setPeople } = root.actions;

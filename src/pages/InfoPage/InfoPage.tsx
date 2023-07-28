@@ -8,7 +8,7 @@ import { SpeciesCard } from '../../components/SpeciesCard/SpeciesCard';
 import { Person } from '../../data-models';
 import './InfoPage.css';
 
-export const InfoPage = () => {
+export function InfoPage() {
   const person = useSelector((state: RootState) => state[root.name].person as Person);
 
   return (

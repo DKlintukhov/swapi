@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   Page,
-  PageResponse,
   Film,
-  Person,
   Species,
   Starship,
   Vehicle,
@@ -28,11 +26,11 @@ export const swAPI = createApi({
       }),
       transformResponse: transformPageResponse,
     }),
-    getPerson: query<Person, string>({
+    searchPerson: query<Page, string>({
       query: (search: string) => ({
         url: `people/?search=${search}`,
       }),
-      transformResponse: (resp: PageResponse) => transformPageResponse(resp).people[0],
+      transformResponse: transformPageResponse,
     }),
     getPlanet: query<Planet, number>({
       query: (num: number) => ({
@@ -69,7 +67,8 @@ export const swAPI = createApi({
 
 export const {
   useGetPageQuery,
-  useGetPersonQuery,
+  useSearchPersonQuery,
+  useLazySearchPersonQuery,
   useGetPlanetQuery,
   useGetStarshipQuery,
   useGetFilmQuery,

@@ -1,5 +1,6 @@
 export * from './ErrorBoundaryFallback/ErrorBoundaryFallback';
 export * from './PeopleMenu/PeopleMenu';
+export * from './Form/Form';
 export * from './FormActionBtns/FormActionBtns';
 export * from './PersonCard/PersonCard';
 export * from './PlanetCard/PlanetCard';
@@ -11,3 +12,4 @@ export * from './StarshipForm/StarshipForm';
 export * from './StarshipCard/StarshipCard';
 export * from './VehicleForm/VehicleForm';
 export * from './SpeciesForm/SpeciesForm';
+export * from './PeopleSearchDropdown/PeopleSearchDropdown';

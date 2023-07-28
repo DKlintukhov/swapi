@@ -1,11 +1,11 @@
-.container {
+.home-page__container {
   height: 100vh;
   display: grid;
   justify-content: center;
   grid-template-rows: 10fr 1fr;
 }
 
-.section {
+.home-page__section {
   display: flex;
   align-items: center;
   justify-content: center;

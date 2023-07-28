@@ -8,7 +8,7 @@ interface StarshipCardProps {
   url: string;
 }
 
-export const StarshipCard = ({ url }: StarshipCardProps) => {
+export function StarshipCard({ url }: StarshipCardProps) {
   const starshipNum = +url.split('/').reverse()[1];
   const { data: starship, isLoading } = useGetStarshipQuery(starshipNum);
 

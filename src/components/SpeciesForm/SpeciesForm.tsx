@@ -1,15 +1,14 @@
 import { TextField } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Species } from '../../data-models';
-import { FormActionBtns } from '../FormActionBtns/FormActionBtns';
-import './SpeciesForm.css';
+import { Form } from '..';
 
 interface SpeciesFormProps {
   species: Species;
   onSubmit: (p: Species) => void;
 }
 
-export const SpeciesForm = ({ species, onSubmit }: SpeciesFormProps) => {
+export function SpeciesForm({ species, onSubmit }: SpeciesFormProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Species>>({
     defaultValues: {
       name: species.name,
@@ -23,8 +22,8 @@ export const SpeciesForm = ({ species, onSubmit }: SpeciesFormProps) => {
       designation: species.designation,
     },
   });
-  const handleReset = () => reset();
-  const submitHandle: SubmitHandler<Partial<Species>> = (data) => {
+
+  const submitHandler: SubmitHandler<Partial<Species>> = (data) => {
     if (species) {
       const newspecies: Species = {
         ...species,
@@ -35,7 +34,7 @@ export const SpeciesForm = ({ species, onSubmit }: SpeciesFormProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(submitHandle)} className="film__form">
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Language:" variant="outlined" {...register("language", { required: true, min: 1 })} error={!!errors.language} />
       <TextField label="Average Height:" variant="outlined" {...register("averageHeight", { required: true, maxLength: 64 })} error={!!errors.averageHeight} />
@@ -45,7 +44,6 @@ export const SpeciesForm = ({ species, onSubmit }: SpeciesFormProps) => {
       <TextField label="Hair Colors:" variant="outlined" {...register("hairColors", { required: true, maxLength: 64 })} error={!!errors.hairColors} />
       <TextField label="Skin Colors:" variant="outlined" {...register("skinColors", { required: true, maxLength: 64 })} error={!!errors.skinColors} />
       <TextField label="Designation:" variant="outlined" {...register("designation", { required: true, maxLength: 64 })} error={!!errors.designation} />
-      <FormActionBtns handleReset={handleReset} handleCancel={handleReset}></FormActionBtns>
-    </form>
+    </Form>
   )
 }

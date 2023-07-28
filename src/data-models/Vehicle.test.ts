@@ -42,7 +42,7 @@ export const vehicleMock: Vehicle = {
   vehicleClass: 'Vehicle Class',
 };
 
-test('should transform VehicleResponse to Vehicle', () => {
+it('should transform VehicleResponse to Vehicle', () => {
   const transformedVehicle = transformVehicleResponse(vehicleResponseMock);
   expect(transformedVehicle).toEqual(vehicleMock);
 });

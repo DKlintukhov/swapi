@@ -48,7 +48,7 @@ export const personMock: Person = {
   url: 'person-url',
 };
 
-test('should transform PersonResponse to Person', () => {
+it('should transform PersonResponse to Person', () => {
   const transformedPerson = transformPersonResponse(personResponseMock);
   expect(transformedPerson).toEqual(personMock);
 });

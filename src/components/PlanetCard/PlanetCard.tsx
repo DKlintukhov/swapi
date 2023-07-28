@@ -8,7 +8,7 @@ interface PlanetCardProps {
   url: string;
 }
 
-export const PlanetCard = ({ url }: PlanetCardProps) => {
+export function PlanetCard({ url }: PlanetCardProps) {
   const planetNum = +url.split('/').reverse()[1];
   const { data: planet, isLoading } = useGetPlanetQuery(planetNum);
 

@@ -46,7 +46,7 @@ export const starshipMock: Starship = {
   url: 'starship-url',
 };
 
-test('should transform StarshipResponse to Starship', () => {
+it('should transform StarshipResponse to Starship', () => {
   const transformedStarship = transformStarshipResponse(starshipResponseMock);
   expect(transformedStarship).toEqual(starshipMock);
 });

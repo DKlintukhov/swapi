@@ -8,7 +8,7 @@ interface VehicleCardProps {
   url: string;
 }
 
-export const VehicleCard = ({ url }: VehicleCardProps) => {
+export function VehicleCard({ url }: VehicleCardProps) {
   const vehicleNum = +url.split('/').reverse()[1];
   const { data: vehicle, isLoading } = useGetVehicleQuery(vehicleNum);
 
