@@ -8,7 +8,7 @@ interface FilmCardProps {
   url: string;
 }
 
-export const FilmCard = ({ url }: FilmCardProps) => {
+export function FilmCard({ url }: FilmCardProps) {
   const filmNum = +url.split('/').reverse()[1];
   const { isLoading, data: film } = useGetFilmQuery(filmNum);
 

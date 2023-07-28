@@ -1,7 +1,7 @@
 
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { useGetFilmQuery, useGetPageQuery, useGetPersonQuery, useGetPlanetQuery, useGetSpeciesQuery, useGetStarshipQuery, useGetVehicleQuery, } from './swAPI';
+import { useGetFilmQuery, useGetPageQuery, useSearchPersonQuery, useGetPlanetQuery, useGetSpeciesQuery, useGetStarshipQuery, useGetVehicleQuery, } from './swAPI';
 import { Film, Page, Person, Planet, Species, Starship, Vehicle } from '../../data-models';
 import { act, renderHook } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -52,11 +52,11 @@ describe('swAPI', () => {
     });
   });
 
-  describe('getPerson', () => {
-    it('should return the first person matching the search', async () => {
-      const { result } = renderHook(() => useGetPersonQuery('Luke'), { wrapper });
+  describe('searchPerson', () => {
+    it('should return persons matching the search', async () => {
+      const { result } = renderHook(() => useSearchPersonQuery('Luke'), { wrapper });
       await act(() => result.current.refetch());
-      const person: Person = result.current.data!;
+      const person: Person = result.current.data!.people[0];
       expect(person.name).toBe(personMock.name);
       expect(person.url).toBe(personMock.url);
     });

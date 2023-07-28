@@ -8,7 +8,7 @@ interface PersonCardProps {
   person: Person;
 }
 
-export const PersonCard = ({ person }: PersonCardProps) => {
+export function PersonCard({ person }: PersonCardProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Person>>({
     defaultValues: {
       name: person.name,

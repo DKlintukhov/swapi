@@ -9,7 +9,7 @@ interface SpeciesFormProps {
   onSubmit: (p: Species) => void;
 }
 
-export const SpeciesForm = ({ species, onSubmit }: SpeciesFormProps) => {
+export function SpeciesForm({ species, onSubmit }: SpeciesFormProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Species>>({
     defaultValues: {
       name: species.name,

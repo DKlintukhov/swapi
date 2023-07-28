@@ -9,7 +9,7 @@ interface VehicleFormProps {
   onSubmit: (p: Vehicle) => void;
 }
 
-export const VehicleForm = ({ vehicle, onSubmit }: VehicleFormProps) => {
+export function VehicleForm({ vehicle, onSubmit }: VehicleFormProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Vehicle>>({
     defaultValues: {
       name: vehicle.name,

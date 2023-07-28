@@ -6,7 +6,7 @@ interface FormActionBtnsProps {
   handleReset: () => void,
 }
 
-export const FormActionBtns = ({ handleCancel, handleReset }: FormActionBtnsProps) => {
+export function FormActionBtns({ handleCancel, handleReset }: FormActionBtnsProps) {
   return (
     <div className="form-action-btns">
       <Button size="small" variant="outlined" color="error" onClick={handleCancel}>Cancel</Button>

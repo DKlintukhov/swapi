@@ -9,7 +9,7 @@ interface PlanetFormProps {
   onSubmit: (p: Planet) => void;
 }
 
-export const PlanetForm = ({ planet, onSubmit }: PlanetFormProps) => {
+export function PlanetForm({ planet, onSubmit }: PlanetFormProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Planet>>({
     defaultValues: {
       name: planet.name,

@@ -8,7 +8,7 @@ interface SpeciesCardProps {
   url: string;
 }
 
-export const SpeciesCard = ({ url }: SpeciesCardProps) => {
+export function SpeciesCard({ url }: SpeciesCardProps) {
   const speciesNum = +url.split('/').reverse()[1];
   const { data: species, isLoading } = useGetSpeciesQuery(speciesNum);
 

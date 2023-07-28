@@ -9,7 +9,7 @@ interface FilmFormProps {
   onSubmit: (p: Film) => void;
 }
 
-export const FilmForm = ({ film, onSubmit }: FilmFormProps) => {
+export function FilmForm({ film, onSubmit }: FilmFormProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Film>>({
     defaultValues: {
       title: film.title,

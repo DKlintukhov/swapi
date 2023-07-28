@@ -9,7 +9,7 @@ interface StarshipFormProps {
   onSubmit: (p: Starship) => void;
 }
 
-export const StarshipForm = ({ starship, onSubmit }: StarshipFormProps) => {
+export function StarshipForm({ starship, onSubmit }: StarshipFormProps) {
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Starship>>({
     defaultValues: {
       name: starship.name,

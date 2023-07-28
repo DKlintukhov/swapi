@@ -11,3 +11,4 @@ export * from './StarshipForm/StarshipForm';
 export * from './StarshipCard/StarshipCard';
 export * from './VehicleForm/VehicleForm';
 export * from './SpeciesForm/SpeciesForm';
+export * from './PeopleSearchDropdown/PeopleSearchDropdown';
