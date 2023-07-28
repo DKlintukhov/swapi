@@ -6,20 +6,17 @@ import './StarshipCard.css';
 
 interface StarshipCardProps {
   url: string;
+  onSave: (starship: Starship) => void;
 }
 
-export function StarshipCard({ url }: StarshipCardProps) {
+export function StarshipCard({ url, onSave }: StarshipCardProps) {
   const starshipNum = +url.split('/').reverse()[1];
   const { data: starship, isLoading } = useGetStarshipQuery(starshipNum);
-
-  const starshipSaveHandle = (starship: Starship) => {
-    console.log('SAVE STARSHIP', starship);
-  }
 
   return (
     <>
       {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && starship && <StarshipForm starship={starship} onSubmit={starshipSaveHandle}></StarshipForm>}
+      {!isLoading && starship && <StarshipForm starship={starship} onSubmit={onSave}></StarshipForm>}
     </>
   )
 }

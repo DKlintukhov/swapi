@@ -6,20 +6,17 @@ import './VehicleCard.css';
 
 interface VehicleCardProps {
   url: string;
+  onSave: (vehicle: Vehicle) => void;
 }
 
-export function VehicleCard({ url }: VehicleCardProps) {
+export function VehicleCard({ url, onSave }: VehicleCardProps) {
   const vehicleNum = +url.split('/').reverse()[1];
   const { data: vehicle, isLoading } = useGetVehicleQuery(vehicleNum);
-
-  const vehicleSaveHandle = (vehicle: Vehicle) => {
-    console.log('SAVE VEHICLE', vehicle);
-  }
 
   return (
     <>
       {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && vehicle && <VehicleForm vehicle={vehicle} onSubmit={vehicleSaveHandle}></VehicleForm>}
+      {!isLoading && vehicle && <VehicleForm vehicle={vehicle} onSubmit={onSave}></VehicleForm>}
     </>
   )
 }

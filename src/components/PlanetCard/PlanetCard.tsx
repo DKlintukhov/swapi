@@ -6,20 +6,17 @@ import './PlanetCard.css';
 
 interface PlanetCardProps {
   url: string;
+  onSave: (planet: Planet) => void;
 }
 
-export function PlanetCard({ url }: PlanetCardProps) {
+export function PlanetCard({ url, onSave }: PlanetCardProps) {
   const planetNum = +url.split('/').reverse()[1];
   const { data: planet, isLoading } = useGetPlanetQuery(planetNum);
-
-  const planetSaveHandle = (planet: Planet) => {
-    console.log('SAVE PLANET', planet);
-  }
 
   return (
     <>
       {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && planet && <PlanetForm planet={planet} onSubmit={planetSaveHandle}></PlanetForm>}
+      {!isLoading && planet && <PlanetForm planet={planet} onSubmit={onSave}></PlanetForm>}
     </>
   )
 }

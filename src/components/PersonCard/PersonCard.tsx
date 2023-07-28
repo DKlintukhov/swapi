@@ -2,12 +2,15 @@ import { TextField } from '@mui/material';
 import { Person } from '../../data-models';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form } from '..';
+import { useDispatch } from 'react-redux';
+import { savePerson } from '../../store';
 
 interface PersonCardProps {
   person: Person;
 }
 
 export function PersonCard({ person }: PersonCardProps) {
+  const dispatch = useDispatch();
   const { handleSubmit, register, formState: { errors }, reset } = useForm<Partial<Person>>({
     defaultValues: {
       name: person.name,
@@ -21,7 +24,7 @@ export function PersonCard({ person }: PersonCardProps) {
     },
   });
   const submit = (person: Person) => {
-    console.log('SAVE PERSON', person);
+    dispatch(savePerson(person));
   }
   
   const submitHandler: SubmitHandler<Partial<Person>> = (data) => {

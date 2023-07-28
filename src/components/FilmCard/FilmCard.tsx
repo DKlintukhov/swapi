@@ -6,20 +6,17 @@ import './FilmCard.css';
 
 interface FilmCardProps {
   url: string;
+  onSave: (film: Film) => void;
 }
 
-export function FilmCard({ url }: FilmCardProps) {
+export function FilmCard({ url, onSave }: FilmCardProps) {
   const filmNum = +url.split('/').reverse()[1];
   const { isLoading, data: film } = useGetFilmQuery(filmNum);
-
-  const filmSaveHandle = (film: Film) => {
-    console.log('SAVE FILM', film);
-  }
 
   return (
     <>
       {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && film && <FilmForm film={film} onSubmit={filmSaveHandle}></FilmForm>}
+      {!isLoading && film && <FilmForm film={film} onSubmit={onSave}></FilmForm>}
     </>
   )
 }
