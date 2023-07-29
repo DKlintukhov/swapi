@@ -1,17 +1,11 @@
 import { CircularProgress } from '@mui/material';
-import { Vehicle } from '../../data-models';
+import { CardProps, Vehicle } from '../../data-models';
 import { useGetVehicleQuery } from '../../store/swAPI/swAPI';
 import { VehicleForm } from '../VehicleForm/VehicleForm';
 import './VehicleCard.css';
 
-interface VehicleCardProps {
-  url: string;
-  onSave: (vehicle: Vehicle) => void;
-}
-
-export function VehicleCard({ url, onSave }: VehicleCardProps) {
-  const vehicleNum = +url.split('/').reverse()[1];
-  const { data: vehicle, isLoading } = useGetVehicleQuery(vehicleNum);
+export function VehicleCard({ id, onSave }: CardProps<Vehicle>) {
+  const { data: vehicle, isLoading } = useGetVehicleQuery(id);
 
   return (
     <>

@@ -12,8 +12,8 @@ export const speciesResponseMock: SpeciesResponse = {
   homeworld: 'planet1',
   language: 'english',
   name: 'Species Name',
-  people: ['person1', 'person2'],
-  films: ['film1', 'film2'],
+  people: ['https://link/0/', 'https://link/1/'],
+  films: ['https://link/0/', 'https://link/1/'],
   skin_colors: 'fair, dark',
   url: 'species-url',
 };
@@ -29,12 +29,12 @@ export const speciesMock: Species = {
   language: 'english',
   name: 'Species Name',
   people: [
-    { url: 'person1', child: null },
-    { url: 'person2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
   films: [
-    { url: 'film1', child: null },
-    { url: 'film2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
   skinColors: 'fair, dark',
   url: 'species-url',

@@ -6,3 +6,4 @@ export * from './Species';
 export * from './Starship';
 export * from './Vehicle';
 export * from './Page';
+export * from './CardProps';

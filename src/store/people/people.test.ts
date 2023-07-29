@@ -9,7 +9,7 @@ describe('ui slice', () => {
   });
 
   it('should handle setPeople', () => {
-    const savedPerson: Person = { ...personMock, name: 'Saved', starships: [{ url: starshipMock.url, child: starshipMock }] };
+    const savedPerson: Person = { ...personMock, name: 'Saved', starships: [{ url: starshipMock.url, child: starshipMock, id: '1' }] };
     localStorage.setItem(savedPerson.url, JSON.stringify(savedPerson));
     const action = { type: 'people/setPeople', payload: [personMock] };
     const newState = people.reducer(initialState, action);

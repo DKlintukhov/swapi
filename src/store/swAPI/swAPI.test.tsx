@@ -64,7 +64,7 @@ describe('swAPI', () => {
 
   describe('getPlanet', () => {
     it('should return the planet with the specified number', async () => {
-      const { result } = renderHook(() => useGetPlanetQuery(1), { wrapper });
+      const { result } = renderHook(() => useGetPlanetQuery('1'), { wrapper });
       await act(() => result.current.refetch());
       const planet: Planet = result.current.data!;
       expect(planet.name).toBe(planetMock.name);
@@ -74,7 +74,7 @@ describe('swAPI', () => {
 
   describe('getStarship', () => {
     it('should return the starship with the specified number', async () => {
-      const { result } = renderHook(() => useGetStarshipQuery(1), { wrapper });
+      const { result } = renderHook(() => useGetStarshipQuery('1'), { wrapper });
       await act(() => result.current.refetch());
       const starship: Starship = result.current.data!;
       expect(starship.name).toBe(starshipMock.name);
@@ -84,7 +84,7 @@ describe('swAPI', () => {
 
   describe('getFilm', () => {
     it('should return the film with the specified number', async () => {
-      const { result } = renderHook(() => useGetFilmQuery(1), { wrapper });
+      const { result } = renderHook(() => useGetFilmQuery('1'), { wrapper });
       await act(() => result.current.refetch());
       const film: Film = result.current.data!;
       expect(film.title).toBe(filmMock.title);
@@ -94,7 +94,7 @@ describe('swAPI', () => {
 
   describe('getSpecies', () => {
     it('should return the species with the specified number', async () => {
-      const { result } = renderHook(() => useGetSpeciesQuery(1), { wrapper });
+      const { result } = renderHook(() => useGetSpeciesQuery('1'), { wrapper });
       await act(() => result.current.refetch());
       const species: Species = result.current.data!;
       expect(species.name).toBe(speciesMock.name);
@@ -104,7 +104,7 @@ describe('swAPI', () => {
 
   describe('getVehicle', () => {
     it('should return the vehicles with the specified number', async () => {
-      const { result } = renderHook(() => useGetVehicleQuery(1), { wrapper });
+      const { result } = renderHook(() => useGetVehicleQuery('1'), { wrapper });
       await act(() => result.current.refetch());
       const vehicle: Vehicle = result.current.data!;
       expect(vehicle.name).toBe(vehicleMock.name);

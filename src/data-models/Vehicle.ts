@@ -1,4 +1,5 @@
-import { Person, ChildProxy, Film } from '.';
+import { Person, ChildProxy, Film, makeChildProxy } from '.';
+import { Entity } from './Entity';
 
 export interface VehicleResponse {
   cargo_capacity: string;
@@ -19,7 +20,7 @@ export interface VehicleResponse {
   vehicle_class: string;
 }
 
-export interface Vehicle {
+export interface Vehicle extends Entity {
   cargoCapacity: string;
   consumables: string;
   costInCredits: string;
@@ -47,8 +48,8 @@ export const transformVehicleResponse = (resp: VehicleResponse): Vehicle => ({
   model: resp.model,
   name: resp.name,
   passengers: resp.passengers,
-  pilots: resp.pilots.map((url) => ({ url, child: null })),
-  films: resp.films.map((url) => ({ url, child: null })),
+  pilots: resp.pilots.map(makeChildProxy<Person>),
+  films: resp.films.map(makeChildProxy<Film>),
   url: resp.url,
   vehicleClass: resp.vehicle_class,
 });

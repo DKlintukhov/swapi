@@ -6,6 +6,7 @@ import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/
 import { VehicleCard } from '../../components/VehicleCard/VehicleCard';
 import { SpeciesCard } from '../../components/SpeciesCard/SpeciesCard';
 import { Film, Person, Planet, Species, Starship, Vehicle } from '../../data-models';
+import { mergeProxies } from '../../utils';
 import './InfoPage.css';
 
 export function InfoPage() {
@@ -13,54 +14,34 @@ export function InfoPage() {
   const person = useSelector(({ ui }: RootState) => ui.person as Person);
 
   const onPlanetSave = (planet: Planet) => {
-    const toSave: Person = { ...person, homeworld: { url: planet.url, child: planet } };
+    const toSave: Person = { ...person, homeworld: { url: planet.url, child: planet, id: person.homeworld.id } };
     dispatch(savePerson(toSave));
   }
   const onStarshipSave = (starship: Starship) => {
     const toSave: Person = {
-      ...person, starships: person.starships.map((proxy) => {
-        if (proxy.url === starship.url) {
-          return { url: starship.url, child: starship };
-        }
-        return proxy;
-      })
+      ...person, starships: mergeProxies(person.starships, starship)
     };
     dispatch(savePerson(toSave));
   }
   const onFilmSave = (film: Film) => {
     const toSave: Person = {
-      ...person, films: person.films.map((proxy) => {
-        if (proxy.url === film.url) {
-          return { url: film.url, child: film };
-        }
-        return proxy;
-      })
+      ...person, films: mergeProxies(person.films, film)
     };
     dispatch(savePerson(toSave));
   }
   const onSpeciesSave = (species: Species) => {
     const toSave: Person = {
-      ...person, species: person.species.map((proxy) => {
-        if (proxy.url === species.url) {
-          return { url: species.url, child: species };
-        }
-        return proxy;
-      })
+      ...person, species: mergeProxies(person.species, species)
     };
     dispatch(savePerson(toSave));
   }
   const onVehicleSave = (vehicle: Vehicle) => {
     const toSave: Person = {
-      ...person, vehicles: person.vehicles.map((proxy) => {
-        if (proxy.url === vehicle.url) {
-          return { url: vehicle.url, child: vehicle };
-        }
-        return proxy;
-      })
+      ...person, vehicles: mergeProxies(person.vehicles, vehicle)
     };
     dispatch(savePerson(toSave));
   }
-  
+
   return (
     <Container>
       <Accordion defaultExpanded={true}>
@@ -77,7 +58,7 @@ export function InfoPage() {
           <Typography>Homeworld</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {person && <PlanetCard url={person.homeworld.url} onSave={onPlanetSave}></PlanetCard>}
+          {person && <PlanetCard id={person.homeworld.id} onSave={onPlanetSave}></PlanetCard>}
         </AccordionDetails>
       </Accordion>
 
@@ -86,8 +67,8 @@ export function InfoPage() {
           <Typography>Films</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.films.map(({ url }, idx) =>
-            <FilmCard key={idx} url={url} onSave={onFilmSave}></FilmCard>
+          {person && person.films.map(({ id }, idx) =>
+            <FilmCard key={idx} id={id} onSave={onFilmSave}></FilmCard>
           )}
         </AccordionDetails>
       </Accordion>
@@ -97,8 +78,8 @@ export function InfoPage() {
           <Typography>Starships</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.starships.map(({ url }, idx) =>
-            <StarshipCard key={idx} url={url} onSave={onStarshipSave}></StarshipCard>
+          {person && person.starships.map(({ id }, idx) =>
+            <StarshipCard key={idx} id={id} onSave={onStarshipSave}></StarshipCard>
           )}
         </AccordionDetails>
       </Accordion >
@@ -108,8 +89,8 @@ export function InfoPage() {
           <Typography>Species</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.species.map(({ url }, idx) =>
-            <SpeciesCard key={idx} url={url} onSave={onSpeciesSave}></SpeciesCard>
+          {person && person.species.map(({ id }, idx) =>
+            <SpeciesCard key={idx} id={id} onSave={onSpeciesSave}></SpeciesCard>
           )}
         </AccordionDetails>
       </Accordion >
@@ -119,8 +100,8 @@ export function InfoPage() {
           <Typography>Vehicles</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.vehicles.map(({ url }, idx) =>
-            <VehicleCard key={idx} url={url} onSave={onVehicleSave}></VehicleCard>
+          {person && person.vehicles.map(({ id }, idx) =>
+            <VehicleCard key={idx} id={id} onSave={onVehicleSave}></VehicleCard>
           )}
         </AccordionDetails>
       </Accordion >

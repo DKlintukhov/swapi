@@ -1,4 +1,5 @@
-import { Film, ChildProxy, Person } from '.';
+import { Film, ChildProxy, Person, makeChildProxy } from '.';
+import { Entity } from './Entity';
 
 export interface StarshipResponse {
   MGLT: string;
@@ -21,7 +22,7 @@ export interface StarshipResponse {
   url: string;
 }
 
-export interface Starship {
+export interface Starship extends Entity {
   MGLT: string;
   cargoCapacity: string;
   consumables: string;
@@ -53,8 +54,8 @@ export const transformStarshipResponse = (resp: StarshipResponse): Starship => (
   model: resp.model,
   name: resp.name,
   passengers: resp.passengers,
-  films: resp.films.map((url) => ({ url, child: null })),
-  pilots: resp.pilots.map((url) => ({ url, child: null })),
+  films: resp.films.map(makeChildProxy<Film>),
+  pilots: resp.pilots.map(makeChildProxy<Person>),
   starshipClass: resp.starship_class,
   url: resp.url,
 });

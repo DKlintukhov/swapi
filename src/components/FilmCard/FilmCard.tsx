@@ -1,17 +1,11 @@
 import { CircularProgress } from '@mui/material';
-import { Film } from '../../data-models';
+import { CardProps, Film } from '../../data-models';
 import { useGetFilmQuery } from '../../store/swAPI/swAPI';
 import { FilmForm } from '..';
 import './FilmCard.css';
 
-interface FilmCardProps {
-  url: string;
-  onSave: (film: Film) => void;
-}
-
-export function FilmCard({ url, onSave }: FilmCardProps) {
-  const filmNum = +url.split('/').reverse()[1];
-  const { isLoading, data: film } = useGetFilmQuery(filmNum);
+export function FilmCard({ id, onSave }: CardProps<Film>) {
+  const { isLoading, data: film } = useGetFilmQuery(id);
 
   return (
     <>
