@@ -4,9 +4,10 @@ import { vehicleMock } from '../../data-models/Vehicle.test';
 
 describe('VehicleForm', () => {
   const mockOnSubmit = jest.fn();
+  const mockOnDelete = jest.fn();
 
   beforeEach(() => {
-    render(<VehicleForm vehicle={vehicleMock} onSubmit={mockOnSubmit} />);
+    render(<VehicleForm data={vehicleMock} onSubmit={mockOnSubmit} onDelete={mockOnDelete}/>);
   });
 
   it('renders all form fields', () => {
@@ -36,7 +37,7 @@ describe('VehicleForm', () => {
       fireEvent.change(screen.getByLabelText('Cost In Credits:'), { target: { value: 'Cost In Credits' } });
       fireEvent.change(screen.getByLabelText('Max Atmosphering Speed:'), { target: { value: 'Max Atmosphering Speed' } });
       fireEvent.change(screen.getByLabelText('Passengers:'), { target: { value: 'Passengers' } });
-      fireEvent.submit(screen.getByText('Save'));
+      fireEvent.submit(screen.getByRole('submit'));
     });
 
     expect(mockOnSubmit).toHaveBeenCalledWith({

@@ -4,9 +4,10 @@ import { starshipMock } from '../../data-models/Starship.test';
 
 describe('StarshipForm', () => {
   const mockOnSubmit = jest.fn();
+  const mockOnDelete = jest.fn();
 
   beforeEach(() => {
-    render(<StarshipForm starship={starshipMock} onSubmit={mockOnSubmit} />);
+    render(<StarshipForm data={starshipMock} onSubmit={mockOnSubmit} onDelete={mockOnDelete}/>);
   });
 
   it('renders all form fields', () => {
@@ -40,7 +41,7 @@ describe('StarshipForm', () => {
       fireEvent.change(screen.getByLabelText('MGLT:'), { target: { value: 'MGLT' } });
       fireEvent.change(screen.getByLabelText('Max Atmosphering Speed:'), { target: { value: 'Max Atmosphering Speed' } });
       fireEvent.change(screen.getByLabelText('Passengers:'), { target: { value: 'Passengers' } });
-      fireEvent.submit(screen.getByText('Save'));
+      fireEvent.submit(screen.getByRole('submit'));
     });
 
     expect(mockOnSubmit).toHaveBeenCalledWith({

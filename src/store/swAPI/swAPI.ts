@@ -72,7 +72,11 @@ export const {
   useGetPlanetQuery,
   useLazyGetPlanetQuery,
   useGetStarshipQuery,
+  useLazyGetStarshipQuery,
   useGetFilmQuery,
+  useLazyGetFilmQuery,
   useGetSpeciesQuery,
+  useLazyGetSpeciesQuery,
   useGetVehicleQuery,
+  useLazyGetVehicleQuery
 } = swAPI;

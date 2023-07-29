@@ -3,16 +3,16 @@ import './Form.css';
 
 interface FormProps {
   onReset: () => void;
-  onCancel: () => void;
+  onDelete: () => void;
   onSubmit: () => void;
   children: React.ReactNode;
 }
 
-export function Form({ onCancel, onReset, onSubmit, children }: FormProps) {
+export function Form({ onDelete, onReset, onSubmit, children }: FormProps) {
   return (
-    <form onSubmit={onSubmit} className="form__container">
+    <form onSubmit={onSubmit} aria-label="form" className="form__container">
       {children}
-      <FormActionBtns onReset={onReset} onCancel={onCancel}></FormActionBtns>
+      <FormActionBtns onReset={onReset} onDelete={onDelete}></FormActionBtns>
     </form>
   )
 }

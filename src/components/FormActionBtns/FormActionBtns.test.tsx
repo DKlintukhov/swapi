@@ -2,16 +2,16 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { FormActionBtns } from './FormActionBtns';
 
 describe('FormActionBtns', () => {
-  it('should call onCancel when the cancel button is clicked', () => {
-    const handleCancelMock = jest.fn();
+  it('should call onDelete when the delete button is clicked', () => {
+    const handleDeleteMock = jest.fn();
     const handleResetMock = jest.fn();
 
-    render(<FormActionBtns onCancel={handleCancelMock} onReset={handleResetMock} />);
+    render(<FormActionBtns onDelete={handleDeleteMock} onReset={handleResetMock} />);
 
-    const cancelButton = screen.getByText('Cancel');
+    const cancelButton = screen.getByRole('delete');
     fireEvent.click(cancelButton);
 
-    expect(handleCancelMock).toHaveBeenCalledTimes(1);
+    expect(handleDeleteMock).toHaveBeenCalledTimes(1);
     expect(handleResetMock).not.toHaveBeenCalled();
   });
 
@@ -19,9 +19,9 @@ describe('FormActionBtns', () => {
     const handleCancelMock = jest.fn();
     const handleResetMock = jest.fn();
 
-    render(<FormActionBtns onReset={handleResetMock} onCancel={handleCancelMock} />);
+    render(<FormActionBtns onReset={handleResetMock} onDelete={handleCancelMock} />);
 
-    const resetButton = screen.getByText('Reset');
+    const resetButton = screen.getByRole('reset');
 
     fireEvent.click(resetButton);
 

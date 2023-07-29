@@ -22,7 +22,7 @@ interface PeopleMenuProps {
 export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
   const [searchPerson, setSearchPerson] = useState('');
   const debounced = useDebounce(searchPerson);
-  const [filteredPeople, setFilteredPeople] = useState(people);
+  const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
   const [fetchPerson, { isFetching, data: page }] = useLazySearchPersonQuery();
 
   const searchPersonHandle = (search: string) => {
@@ -40,6 +40,10 @@ export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
       setFilteredPeople(page.people);
     }
   }, [page]);
+
+  useEffect(() => {
+    setFilteredPeople(people);
+  }, [people]);
 
   return (
     <div className="people-menu__contaner">

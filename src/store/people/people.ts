@@ -36,5 +36,8 @@ export const people = createSlice({
         state.all[idx] = payload;
       }
     },
+    deletePerson: (state, { payload }: PayloadAction<Person>) => {
+      localStorage.removeItem(payload.url);
+    },
   },
 });
