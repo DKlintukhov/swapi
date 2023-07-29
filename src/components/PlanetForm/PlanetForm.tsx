@@ -23,6 +23,8 @@ export function PlanetForm({ planet, onSubmit }: PlanetFormProps) {
     },
   });
 
+  const resetHandler = () => reset();
+
   const submitHandler: SubmitHandler<Partial<Planet>> = (data) => {
     const newPlanet: Planet = {
       ...planet,
@@ -32,7 +34,7 @@ export function PlanetForm({ planet, onSubmit }: PlanetFormProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 32 })} error={!!errors.name} />
       <TextField label="Climate:" variant="outlined" {...register("climate", { required: true, maxLength: 32 })} error={!!errors.climate} />
       <TextField label="Diameter:" variant="outlined" {...register("diameter", { required: true, maxLength: 32 })} error={!!errors.diameter} />

@@ -23,6 +23,8 @@ export function SpeciesForm({ species, onSubmit }: SpeciesFormProps) {
     },
   });
 
+  const resetHandler = () => reset();
+
   const submitHandler: SubmitHandler<Partial<Species>> = (data) => {
     if (species) {
       const newspecies: Species = {
@@ -34,7 +36,7 @@ export function SpeciesForm({ species, onSubmit }: SpeciesFormProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Language:" variant="outlined" {...register("language", { required: true, min: 1 })} error={!!errors.language} />
       <TextField label="Average Height:" variant="outlined" {...register("averageHeight", { required: true, maxLength: 64 })} error={!!errors.averageHeight} />

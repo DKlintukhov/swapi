@@ -25,6 +25,8 @@ export function VehicleForm({ vehicle, onSubmit }: VehicleFormProps) {
     },
   });
 
+  const resetHandler = () => reset();
+
   const submitHandler: SubmitHandler<Partial<Vehicle>> = (data) => {
     if (vehicle) {
       const newVehicle: Vehicle = {
@@ -36,7 +38,7 @@ export function VehicleForm({ vehicle, onSubmit }: VehicleFormProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Vehicle Class:" variant="outlined" {...register("vehicleClass", { required: true, min: 1 })} error={!!errors.vehicleClass} />
       <TextField label="Model:" variant="outlined" {...register("model", { required: true, maxLength: 64 })} error={!!errors.model} />

@@ -27,6 +27,8 @@ export function StarshipForm({ starship, onSubmit }: StarshipFormProps) {
     },
   });
 
+  const resetHandler = () => reset();
+
   const submitHandler: SubmitHandler<Partial<Starship>> = (data) => {
     if (starship) {
       const newStarship: Starship = {
@@ -38,7 +40,7 @@ export function StarshipForm({ starship, onSubmit }: StarshipFormProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Starship Class:" variant="outlined" {...register("starshipClass", { required: true, min: 1 })} error={!!errors.starshipClass} />
       <TextField label="Model:" variant="outlined" {...register("model", { required: true, maxLength: 64 })} error={!!errors.model} />

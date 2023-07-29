@@ -20,6 +20,8 @@ export function FilmForm({ film, onSubmit }: FilmFormProps) {
     },
   });
 
+  const resetHandler = () => reset();
+
   const submitHandler: SubmitHandler<Partial<Film>> = (data) => {
     if (film) {
       const newFilm: Film = {
@@ -32,7 +34,7 @@ export function FilmForm({ film, onSubmit }: FilmFormProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onCancel={reset}>
       <TextField label="Title:" variant="outlined" {...register("title", { required: true, maxLength: 64 })} error={!!errors.title} />
       <TextField label="Episode:" variant="outlined" type="number" {...register("episodeId", { required: true, min: 1 })} error={!!errors.episodeId} />
       <TextField label="Opening Crawl:" variant="outlined" {...register("openingCrawl", { required: true, maxLength: 1024 })} error={!!errors.openingCrawl} />

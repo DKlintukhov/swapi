@@ -26,6 +26,8 @@ export function PersonCard({ person }: PersonCardProps) {
   const submit = (person: Person) => {
     dispatch(savePerson(person));
   }
+
+  const resetHandler = () => reset();
   
   const submitHandler: SubmitHandler<Partial<Person>> = (data) => {
     const newPerson: Person = {
@@ -38,7 +40,7 @@ export function PersonCard({ person }: PersonCardProps) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={reset} onCancel={reset}>
+    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onCancel={reset}>
       <TextField label="Name:" variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Gender:" variant="outlined" {...register("gender", { required: true, maxLength: 64 })} error={!!errors.gender} />
       <TextField label="Birth Year:" variant="outlined" {...register("birthYear", { required: true, maxLength: 64 })} error={!!errors.birthYear} />
