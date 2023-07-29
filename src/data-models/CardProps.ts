@@ -1,4 +1,6 @@
+import { ChildProxy } from './ChidProxy';
+
 export interface CardProps<T> {
-  id: string;
+  proxy: ChildProxy<T>;
   onSave: (data: T) => void;
 }

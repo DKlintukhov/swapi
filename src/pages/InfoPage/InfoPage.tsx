@@ -58,7 +58,7 @@ export function InfoPage() {
           <Typography>Homeworld</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {person && <PlanetCard id={person.homeworld.id} onSave={onPlanetSave}></PlanetCard>}
+          {person && <PlanetCard proxy={person.homeworld} onSave={onPlanetSave}></PlanetCard>}
         </AccordionDetails>
       </Accordion>
 
@@ -67,8 +67,8 @@ export function InfoPage() {
           <Typography>Films</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.films.map(({ id }, idx) =>
-            <FilmCard key={idx} id={id} onSave={onFilmSave}></FilmCard>
+          {person && person.films.map((proxy) =>
+            <FilmCard key={proxy.id} proxy={proxy} onSave={onFilmSave}></FilmCard>
           )}
         </AccordionDetails>
       </Accordion>
@@ -78,8 +78,8 @@ export function InfoPage() {
           <Typography>Starships</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.starships.map(({ id }, idx) =>
-            <StarshipCard key={idx} id={id} onSave={onStarshipSave}></StarshipCard>
+          {person && person.starships.map((proxy) =>
+            <StarshipCard key={proxy.id} proxy={proxy} onSave={onStarshipSave}></StarshipCard>
           )}
         </AccordionDetails>
       </Accordion >
@@ -89,8 +89,8 @@ export function InfoPage() {
           <Typography>Species</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.species.map(({ id }, idx) =>
-            <SpeciesCard key={idx} id={id} onSave={onSpeciesSave}></SpeciesCard>
+          {person && person.species.map((proxy) =>
+            <SpeciesCard key={proxy.id} proxy={proxy} onSave={onSpeciesSave}></SpeciesCard>
           )}
         </AccordionDetails>
       </Accordion >
@@ -100,8 +100,8 @@ export function InfoPage() {
           <Typography>Vehicles</Typography>
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
-          {person && person.vehicles.map(({ id }, idx) =>
-            <VehicleCard key={idx} id={id} onSave={onVehicleSave}></VehicleCard>
+          {person && person.vehicles.map((proxy) =>
+            <VehicleCard key={proxy.id} proxy={proxy} onSave={onVehicleSave}></VehicleCard>
           )}
         </AccordionDetails>
       </Accordion >

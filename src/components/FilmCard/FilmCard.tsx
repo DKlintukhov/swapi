@@ -4,13 +4,14 @@ import { useGetFilmQuery } from '../../store/swAPI/swAPI';
 import { FilmForm } from '..';
 import './FilmCard.css';
 
-export function FilmCard({ id, onSave }: CardProps<Film>) {
-  const { isLoading, data: film } = useGetFilmQuery(id);
+export function FilmCard({ proxy, onSave }: CardProps<Film>) {
+  const { isLoading, data: film } = useGetFilmQuery(proxy.id);
 
   return (
     <>
       {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && film && <FilmForm film={film} onSubmit={onSave}></FilmForm>}
+      {!isLoading && !proxy.child && film && <FilmForm film={film} onSubmit={onSave}></FilmForm>}
+      {proxy.child && <FilmForm film={proxy.child} onSubmit={onSave}></FilmForm>}
     </>
   )
 }
