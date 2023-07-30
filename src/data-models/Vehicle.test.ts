@@ -13,8 +13,8 @@ export const vehicleResponseMock: VehicleResponse = {
   model: 'Model Name',
   name: 'Vehicle Name',
   passengers: '20',
-  pilots: ['person1', 'person2'],
-  films: ['film1', 'film2'],
+  pilots: ['https://link/0/', 'https://link/1/'],
+  films: ['https://link/0/', 'https://link/1/'],
   url: 'vehicle-url',
   vehicle_class: 'Vehicle Class',
 };
@@ -31,12 +31,12 @@ export const vehicleMock: Vehicle = {
   name: 'Vehicle Name',
   passengers: '20',
   pilots: [
-    { url: 'person1', child: null },
-    { url: 'person2', child: null },
+    { url: 'https://link/0/', child: null, id: '0',  },
+    { url: 'https://link/1/', child: null, id: '1',  },
   ],
   films: [
-    { url: 'film1', child: null },
-    { url: 'film2', child: null },
+    { url: 'https://link/0/', child: null, id: '0',  },
+    { url: 'https://link/1/', child: null, id: '1',  },
   ],
   url: 'vehicle-url',
   vehicleClass: 'Vehicle Class',

@@ -5,9 +5,10 @@ import { act } from 'react-dom/test-utils';
 
 describe('FilmForm', () => {
   const onSubmit = jest.fn();
+  const mockOnDelete = jest.fn();
 
   beforeEach(() => {
-    render(<FilmForm film={filmMock} onSubmit={jest.fn()} />);
+    render(<FilmForm data={filmMock} onSubmit={onSubmit} onDelete={mockOnDelete} />);
   });
 
   it('renders form fields with correct default values', () => {
@@ -41,7 +42,7 @@ describe('FilmForm', () => {
       fireEvent.change(directorField, { target: { value: 'Updated Director' } });
       fireEvent.change(producerField, { target: { value: 'Updated Producer' } });
       fireEvent.change(releaseDateField, { target: { value: '2022-01-01' } });
-      fireEvent.submit(screen.getByText('Save'));
+      fireEvent.submit(screen.getByRole('submit'));
     });
 
     setTimeout(() => {

@@ -5,9 +5,10 @@ import { planetMock } from '../../data-models/Planet.test';
 
 describe('PlanetForm', () => {
   const onSubmit = jest.fn();
+  const mockOnDelete = jest.fn();
 
   beforeEach(() => {
-    render(<PlanetForm planet={planetMock} onSubmit={jest.fn()} />);
+    render(<PlanetForm data={planetMock} onSubmit={onSubmit} onDelete={mockOnDelete}/>);
   });
 
   it('renders form fields with correct default values', () => {
@@ -53,7 +54,7 @@ describe('PlanetForm', () => {
       fireEvent.change(rotationPeriodField, { target: { value: 'rotationPeriodField' } });
       fireEvent.change(surfaceWaterField, { target: { value: 'surfaceWaterField' } });
       fireEvent.change(terrainField, { target: { value: 'terrainField' } });
-      fireEvent.submit(screen.getByText('Save'));
+      fireEvent.submit(screen.getByRole('submit'));
     });
 
     setTimeout(() => {

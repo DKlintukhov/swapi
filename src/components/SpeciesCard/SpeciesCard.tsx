@@ -1,25 +1,47 @@
 import { CircularProgress } from '@mui/material';
-import { Species } from '../../data-models';
-import { useGetSpeciesQuery } from '../../store/swAPI/swAPI';
+import { CardProps, Species } from '../../data-models';
+import { useLazyGetSpeciesQuery } from '../../store/swAPI/swAPI';
 import { SpeciesForm } from '../SpeciesForm/SpeciesForm';
+import { useEffect, useState } from 'react';
+import { ErrorMessage } from '..';
 import './SpeciesCard.css';
 
-interface SpeciesCardProps {
-  url: string;
-}
+export function SpeciesCard({ proxy, onSave }: CardProps<Species>) {
+  const [current, setCurrent] = useState<Species | null>(null);
+  const [fetchSpecies, { data: species, isFetching, error }] = useLazyGetSpeciesQuery();
 
-export function SpeciesCard({ url }: SpeciesCardProps) {
-  const speciesNum = +url.split('/').reverse()[1];
-  const { data: species, isLoading } = useGetSpeciesQuery(speciesNum);
+  useEffect(() => {
+    if (proxy.child) {
+      setCurrent(proxy.child);
+    } else {
+      fetchSpecies(proxy.id);
+    }
+  }, [proxy, fetchSpecies]);
 
-  const peciesSaveHandle = (species: Species) => {
-    console.log('SAVE species', species);
-  }
+  useEffect(() => {
+    if (species) {
+      setCurrent(species);
+    }
+  }, [species]);
+
+  const saveHandle = (species: Species) => {
+    onSave({ ...proxy, child: species });
+  };
+
+  const deleteHandle = () => {
+    onSave({ ...proxy, child: null });
+    fetchSpecies(proxy.id);
+  };
+
+  const retryHandle = () => {
+    fetchSpecies(proxy.id);
+  };
 
   return (
-    <>
-      {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && species && <SpeciesForm species={species} onSubmit={peciesSaveHandle}></SpeciesForm>}
-    </>
+    <div className="species-card__container">
+      {isFetching && <CircularProgress size="7rem" />}
+      {!isFetching && !error && current && <SpeciesForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
+      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+    </div>
   )
 }

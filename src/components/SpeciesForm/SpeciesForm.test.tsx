@@ -4,9 +4,10 @@ import { speciesMock } from '../../data-models/Species.test';
 
 describe('SpeciesForm', () => {
   const mockOnSubmit = jest.fn();
+  const mockOnDelete = jest.fn();
 
   beforeEach(() => {
-    render(<SpeciesForm species={speciesMock} onSubmit={mockOnSubmit} />);
+    render(<SpeciesForm data={speciesMock} onSubmit={mockOnSubmit} onDelete={mockOnDelete} />);
   });
 
   it('renders all form fields', () => {
@@ -32,7 +33,7 @@ describe('SpeciesForm', () => {
       fireEvent.change(screen.getByLabelText('Hair Colors:'), { target: { value: 'Blonde' } });
       fireEvent.change(screen.getByLabelText('Skin Colors:'), { target: { value: 'Pale' } });
       fireEvent.change(screen.getByLabelText('Designation:'), { target: { value: 'Non-sentient' } });
-      fireEvent.submit(screen.getByText('Save'));
+      fireEvent.submit(screen.getByRole('submit'));
     });
 
     expect(mockOnSubmit).toHaveBeenCalledWith({

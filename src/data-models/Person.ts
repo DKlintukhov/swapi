@@ -1,4 +1,5 @@
-import { Film, Species, Starship, Vehicle, ChildProxy, Planet } from '.';
+import { Film, Species, Starship, Vehicle, ChildProxy, Planet, makeChildProxy } from '.';
+import { Entity } from './Entity';
 
 export interface PersonResponse {
   birth_year: string;
@@ -19,7 +20,7 @@ export interface PersonResponse {
   vehicles: string[];
 }
 
-export interface Person {
+export interface Person extends Entity {
   birthYear: string;
   eyeColor: string;
   films: ChildProxy<Film>[];
@@ -40,17 +41,17 @@ export const transformPersonResponse = (resp: PersonResponse): Person => (
   {
     birthYear: resp.birth_year,
     eyeColor: resp.eye_color,
-    films: resp.films.map((url) => ({ url, child: null })),
+    films: resp.films.map(makeChildProxy<Film>),
     gender: resp.gender,
     hairColor: resp.hair_color,
     height: resp.height,
-    homeworld: { url: resp.homeworld, child: null },
+    homeworld: makeChildProxy<Planet>(resp.homeworld),
     mass: resp.mass,
     name: resp.name,
     skinColor: resp.skin_color,
     url: resp.url,
-    species: resp.species.map((url) => ({ url, child: null })),
-    starships: resp.starships.map((url) => ({ url, child: null })),
-    vehicles: resp.vehicles.map((url) => ({ url, child: null })),
+    species: resp.species.map(makeChildProxy<Species>),
+    starships: resp.starships.map(makeChildProxy<Starship>),
+    vehicles: resp.vehicles.map(makeChildProxy<Vehicle>),
   }
 );

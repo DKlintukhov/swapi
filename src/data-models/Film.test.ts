@@ -1,48 +1,48 @@
 import { Film, FilmResponse, transformFilmResponse } from '.';
 
 export const filmResponseMock: FilmResponse = {
-  characters: ['character1', 'character2'],
+  characters: ['https://link/0/', 'https://link/1/'],
   created: '2022-01-01',
   director: 'Director',
   edited: '2022-01-02',
   episode_id: 1,
   opening_crawl: 'Opening crawl',
-  planets: ['planet1', 'planet2'],
+  planets: ['https://link/0/', 'https://link/1/'],
   producer: 'Producer',
   release_date: '2022-01-03',
-  species: ['species1', 'species2'],
-  starships: ['starship1', 'starship2'],
+  species: ['https://link/0/', 'https://link/1/'],
+  starships: ['https://link/0/', 'https://link/1/'],
   title: 'Film Title',
-  url: 'film-url',
-  vehicles: ['vehicle1', 'vehicle2'],
+  url: 'https://link/0/',
+  vehicles: ['https://link/0/', 'https://link/1/'],
 };
 export const filmMock: Film = {
   characters: [
-    { url: 'character1', child: null },
-    { url: 'character2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
   director: 'Director',
   episodeId: 1,
   openingCrawl: 'Opening crawl',
   planets: [
-    { url: 'planet1', child: null },
-    { url: 'planet2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
   producer: 'Producer',
   releaseDate: '2022-01-03',
   species: [
-    { url: 'species1', child: null },
-    { url: 'species2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
   starships: [
-    { url: 'starship1', child: null },
-    { url: 'starship2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
   title: 'Film Title',
-  url: 'film-url',
+  url: 'https://link/0/',
   vehicles: [
-    { url: 'vehicle1', child: null },
-    { url: 'vehicle2', child: null },
+    { url: 'https://link/0/', child: null, id: '0', },
+    { url: 'https://link/1/', child: null, id: '1', },
   ],
 };
 

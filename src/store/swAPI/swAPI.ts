@@ -21,44 +21,44 @@ export const swAPI = createApi({
   }),
   endpoints: ({ query }) => ({
     getPage: query<Page, number>({
-      query: (num) => ({
-        url: `people/?page=${num}`
+      query: (page) => ({
+        url: `people/?page=${page}`
       }),
       transformResponse: transformPageResponse,
     }),
     searchPerson: query<Page, string>({
-      query: (search: string) => ({
+      query: (search) => ({
         url: `people/?search=${search}`,
       }),
       transformResponse: transformPageResponse,
     }),
-    getPlanet: query<Planet, number>({
-      query: (num: number) => ({
-        url: `planets/${num}/`,
+    getPlanet: query<Planet, string>({
+      query: (id) => ({
+        url: `planets/${id}/`,
       }),
       transformResponse: transformPlanetResponse,
     }),
-    getStarship: query<Starship, number>({
-      query: (num: number) => ({
-        url: `starships/${num}/`
+    getStarship: query<Starship, string>({
+      query: (id) => ({
+        url: `starships/${id}/`
       }),
       transformResponse: transformStarshipResponse,
     }),
-    getFilm: query<Film, number>({
-      query: (num: number) => ({
-        url: `films/${num}/`
+    getFilm: query<Film, string>({
+      query: (id) => ({
+        url: `films/${id}/`
       }),
       transformResponse: transformFilmResponse,
     }),
-    getSpecies: query<Species, number>({
-      query: (num: number) => ({
-        url: `species/${num}/`
+    getSpecies: query<Species, string>({
+      query: (id) => ({
+        url: `species/${id}/`
       }),
       transformResponse: transformSpeciesResponse,
     }),
-    getVehicle: query<Vehicle, number>({
-      query: (num: number) => ({
-        url: `vehicles/${num}/`
+    getVehicle: query<Vehicle, string>({
+      query: (id) => ({
+        url: `vehicles/${id}/`
       }),
       transformResponse: transformVehicleResponse,
     }),
@@ -70,8 +70,13 @@ export const {
   useSearchPersonQuery,
   useLazySearchPersonQuery,
   useGetPlanetQuery,
+  useLazyGetPlanetQuery,
   useGetStarshipQuery,
+  useLazyGetStarshipQuery,
   useGetFilmQuery,
+  useLazyGetFilmQuery,
   useGetSpeciesQuery,
+  useLazyGetSpeciesQuery,
   useGetVehicleQuery,
+  useLazyGetVehicleQuery
 } = swAPI;

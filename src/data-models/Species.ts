@@ -1,4 +1,5 @@
-import { Film, Person, ChildProxy } from '.';
+import { Film, Person, ChildProxy, makeChildProxy } from '.';
+import { Entity } from './Entity';
 
 export interface SpeciesResponse {
   average_height: string;
@@ -18,7 +19,7 @@ export interface SpeciesResponse {
   url: string;
 }
 
-export interface Species {
+export interface Species extends Entity {
   averageHeight: string;
   averageLifespan: string;
   classification: string;
@@ -44,8 +45,8 @@ export const transformSpeciesResponse = (resp: SpeciesResponse): Species => ({
   homeworld: resp.homeworld,
   language: resp.language,
   name: resp.name,
-  people: resp.people.map((url) => ({ url, child: null })),
-  films: resp.films.map((url) => ({ url, child: null })),
+  people: resp.people.map(makeChildProxy<Person>),
+  films: resp.films.map(makeChildProxy<Film>),
   skinColors: resp.skin_colors,
   url: resp.url,
 });

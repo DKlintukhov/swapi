@@ -1,25 +1,45 @@
 import { CircularProgress } from '@mui/material';
-import { Vehicle } from '../../data-models';
-import { useGetVehicleQuery } from '../../store/swAPI/swAPI';
+import { CardProps, Vehicle } from '../../data-models';
+import { useLazyGetVehicleQuery } from '../../store/swAPI/swAPI';
 import { VehicleForm } from '../VehicleForm/VehicleForm';
+import { useEffect, useState } from 'react';
+import { ErrorMessage } from '..';
 import './VehicleCard.css';
 
-interface VehicleCardProps {
-  url: string;
-}
+export function VehicleCard({ proxy, onSave }: CardProps<Vehicle>) {
+  const [current, setCurrent] = useState<Vehicle | null>(null);
+  const [fetchVehicle, { data: vehicle, isFetching, error }] = useLazyGetVehicleQuery();
 
-export function VehicleCard({ url }: VehicleCardProps) {
-  const vehicleNum = +url.split('/').reverse()[1];
-  const { data: vehicle, isLoading } = useGetVehicleQuery(vehicleNum);
+  useEffect(() => {
+    if (proxy.child) {
+      setCurrent(proxy.child);
+    } else {
+      fetchVehicle(proxy.id);
+    }
+  }, [proxy, fetchVehicle]);
 
-  const vehicleSaveHandle = (vehicle: Vehicle) => {
-    console.log('SAVE VEHICLE', vehicle);
+  useEffect(() => {
+    if (vehicle) {
+      setCurrent(vehicle);
+    }
+  }, [vehicle]);
+
+  const saveHandle = (vehicle: Vehicle) => onSave({ ...proxy, child: vehicle });
+
+  const deleteHandle = () => {
+    onSave({ ...proxy, child: null });
+    fetchVehicle(proxy.id);
   }
 
+  const retryHandle = () => {
+    fetchVehicle(proxy.id);
+  };
+
   return (
-    <>
-      {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && vehicle && <VehicleForm vehicle={vehicle} onSubmit={vehicleSaveHandle}></VehicleForm>}
-    </>
+    <div className="vehicle-card__container">
+      {isFetching && <CircularProgress size="7rem" />}
+      {!isFetching && !error && current && <VehicleForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
+      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+    </div>
   )
 }

@@ -15,8 +15,8 @@ export const starshipResponseMock: StarshipResponse = {
   model: 'Model Name',
   name: 'Starship Name',
   passengers: '20',
-  films: ['film1', 'film2'],
-  pilots: ['person1', 'person2'],
+  films: ['https://link/0/', 'https://link/1/'],
+  pilots: ['https://link/0/', 'https://link/1/'],
   starship_class: 'Starship Class',
   url: 'starship-url',
 };
@@ -35,12 +35,12 @@ export const starshipMock: Starship = {
   name: 'Starship Name',
   passengers: '20',
   films: [
-    { url: 'film1', child: null },
-    { url: 'film2', child: null },
+    { url: 'https://link/0/', child: null, id: '0',  },
+    { url: 'https://link/1/', child: null, id: '1',  },
   ],
   pilots: [
-    { url: 'person1', child: null },
-    { url: 'person2', child: null },
+    { url: 'https://link/0/', child: null, id: '0',  },
+    { url: 'https://link/1/', child: null, id: '1',  },
   ],
   starshipClass: 'Starship Class',
   url: 'starship-url',

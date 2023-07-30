@@ -1,25 +1,46 @@
 import { CircularProgress } from '@mui/material';
-import { Planet } from '../../data-models';
-import { PlanetForm } from '..';
-import { useGetPlanetQuery } from '../../store/swAPI/swAPI';
+import { CardProps, Planet } from '../../data-models';
+import { ErrorMessage, PlanetForm } from '..';
+import { useLazyGetPlanetQuery } from '../../store/swAPI/swAPI';
+import { useEffect, useState } from 'react';
 import './PlanetCard.css';
 
-interface PlanetCardProps {
-  url: string;
-}
+export function PlanetCard({ proxy, onSave }: CardProps<Planet>) {
+  const [current, setCurrent] = useState<Planet | null>(null);
+  const [fetchPlanet, { data: planet, isFetching, error }] = useLazyGetPlanetQuery();
 
-export function PlanetCard({ url }: PlanetCardProps) {
-  const planetNum = +url.split('/').reverse()[1];
-  const { data: planet, isLoading } = useGetPlanetQuery(planetNum);
+  useEffect(() => {
+    if (proxy.child) {
+      setCurrent(proxy.child);
+    } else {
+      fetchPlanet(proxy.id);
+    }
+  }, [proxy, fetchPlanet]);
 
-  const planetSaveHandle = (planet: Planet) => {
-    console.log('SAVE PLANET', planet);
-  }
+  useEffect(() => {
+    if (planet) {
+      setCurrent(planet);
+    }
+  }, [planet]);
+
+  const saveHandle = (planet: Planet) => {
+    onSave({ ...proxy, child: planet });
+  };
+
+  const deleteHandle = () => {
+    onSave({ ...proxy, child: null });
+    fetchPlanet(proxy.id);
+  };
+
+  const retryHandle = () => {
+    fetchPlanet(proxy.id);
+  };
 
   return (
-    <>
-      {isLoading && <CircularProgress size="7rem" />}
-      {!isLoading && planet && <PlanetForm planet={planet} onSubmit={planetSaveHandle}></PlanetForm>}
-    </>
+    <div className="planet-card__container">
+      {isFetching && <CircularProgress size="7rem" />}
+      {!isFetching && !error && current && <PlanetForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
+      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+    </div>
   )
 }

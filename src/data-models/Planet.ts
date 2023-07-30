@@ -1,4 +1,5 @@
-import { ChildProxy, Film, Person } from '.';
+import { ChildProxy, Film, Person, makeChildProxy } from '.';
+import { Entity } from './Entity';
 
 export interface PlanetResponse {
   climate: string;
@@ -17,7 +18,7 @@ export interface PlanetResponse {
   url: string;
 }
 
-export interface Planet {
+export interface Planet extends Entity {
   climate: string;
   diameter: string;
   films: ChildProxy<Film>[];
@@ -35,12 +36,12 @@ export interface Planet {
 export const transformPlanetResponse = (resp: PlanetResponse): Planet => ({
   climate: resp.climate,
   diameter: resp.diameter,
-  films: resp.films.map((url) => ({ url, child: null })),
+  films: resp.films.map(makeChildProxy<Film>),
   gravity: resp.gravity,
   name: resp.name,
   orbitalPeriod: resp.orbital_period,
   population: resp.population,
-  residents: resp.residents.map((url) => ({ url, child: null })),
+  residents: resp.residents.map(makeChildProxy<Person>),
   rotationPeriod: resp.rotation_period,
   surfaceWater: resp.surface_water,
   terrain: resp.terrain,
