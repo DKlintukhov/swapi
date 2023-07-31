@@ -23,22 +23,22 @@ export function StarshipCard({ proxy, onSave }: CardProps<Starship>) {
     }
   }, [starship]);
 
-  const saveHandle = (starship: Starship) => onSave({ ...proxy, child: starship });
+  const handleSave = (starship: Starship) => onSave({ ...proxy, child: starship });
 
-  const deleteHandle = () => {
+  const handleDelete = () => {
     onSave({ ...proxy, child: null });
     fetchStarship(proxy.id);
   };
 
-  const retryHandle = () => {
+  const handleRetry = () => {
     fetchStarship(proxy.id);
   };
 
   return (
     <div className="starship-card__container">
       {isFetching && <CircularProgress size="7rem" />}
-      {!isFetching && !error && current && <StarshipForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
-      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+      {!isFetching && !error && current && <StarshipForm data={current} onSubmit={handleSave} onDelete={handleDelete} />}
+      {!isFetching && error && <ErrorMessage onRetry={handleRetry} />}
     </div>
   )
 }

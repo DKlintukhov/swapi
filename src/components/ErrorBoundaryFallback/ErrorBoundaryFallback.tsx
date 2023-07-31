@@ -1,7 +1,7 @@
 import { Alert, AlertTitle, IconButton } from '@mui/material';
 import { FallbackProps } from 'react-error-boundary';
-import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 
 export function ErrorBoundaryFallback({ resetErrorBoundary }: FallbackProps) {
   const navigate = useNavigate();

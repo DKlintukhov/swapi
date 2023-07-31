@@ -24,22 +24,22 @@ export function VehicleCard({ proxy, onSave }: CardProps<Vehicle>) {
     }
   }, [vehicle]);
 
-  const saveHandle = (vehicle: Vehicle) => onSave({ ...proxy, child: vehicle });
+  const handleSave = (vehicle: Vehicle) => onSave({ ...proxy, child: vehicle });
 
-  const deleteHandle = () => {
+  const handleDelete = () => {
     onSave({ ...proxy, child: null });
     fetchVehicle(proxy.id);
   }
 
-  const retryHandle = () => {
+  const handleRetry = () => {
     fetchVehicle(proxy.id);
   };
 
   return (
     <div className="vehicle-card__container">
       {isFetching && <CircularProgress size="7rem" />}
-      {!isFetching && !error && current && <VehicleForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
-      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+      {!isFetching && !error && current && <VehicleForm data={current} onSubmit={handleSave} onDelete={handleDelete} />}
+      {!isFetching && error && <ErrorMessage onRetry={handleRetry} />}
     </div>
   )
 }

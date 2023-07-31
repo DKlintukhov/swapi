@@ -22,9 +22,9 @@ export function FilmForm({ data: film, onSubmit, onDelete }: DetailesFormProps<F
     Object.entries(getDefaultFormValues(film)).forEach(([key, value]) => setValue(key, value));
   }, [film, setValue]);
 
-  const resetHandler = () => reset();
+  const handleReset = () => reset();
 
-  const submitHandler: SubmitHandler<Partial<Film>> = (data) => {
+  const handleSave: SubmitHandler<Partial<Film>> = (data) => {
     if (film) {
       const newFilm: Film = {
         ...film,
@@ -36,7 +36,7 @@ export function FilmForm({ data: film, onSubmit, onDelete }: DetailesFormProps<F
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onDelete={onDelete}>
+    <Form onSubmit={handleSubmit(handleSave)} onReset={handleReset} onDelete={onDelete}>
       <TextField label="Title:" size="small" fullWidth variant="outlined" {...register("title", { required: true, maxLength: 64 })} error={!!errors.title} />
       <TextField label="Episode:" size="small" fullWidth variant="outlined" type="number" {...register("episodeId", { required: true, min: 1 })} error={!!errors.episodeId} />
       <TextField label="Opening Crawl:" size="small" fullWidth variant="outlined" {...register("openingCrawl", { required: true, maxLength: 1024 })} error={!!errors.openingCrawl} />

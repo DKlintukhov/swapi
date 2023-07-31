@@ -29,9 +29,9 @@ export function StarshipForm({ data: starship, onSubmit, onDelete }: DetailesFor
     Object.entries(getDefaultFormValues(starship)).forEach(([key, value]) => setValue(key, value));
   }, [starship, setValue]);
 
-  const resetHandler = () => reset();
+  const handleReset = () => reset();
 
-  const submitHandler: SubmitHandler<Partial<Starship>> = (data) => {
+  const handleSave: SubmitHandler<Partial<Starship>> = (data) => {
     if (starship) {
       const newStarship: Starship = {
         ...starship,
@@ -42,7 +42,7 @@ export function StarshipForm({ data: starship, onSubmit, onDelete }: DetailesFor
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onDelete={onDelete}>
+    <Form onSubmit={handleSubmit(handleSave)} onReset={handleReset} onDelete={onDelete}>
       <TextField label="Name:" size="small" fullWidth variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Starship Class:" size="small" fullWidth variant="outlined" {...register("starshipClass", { required: true, min: 1 })} error={!!errors.starshipClass} />
       <TextField label="Model:" size="small" fullWidth variant="outlined" {...register("model", { required: true, maxLength: 64 })} error={!!errors.model} />

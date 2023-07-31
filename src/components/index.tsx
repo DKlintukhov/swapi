@@ -16,4 +16,4 @@ export * from './VehicleForm/VehicleForm';
 export * from './SpeciesForm/SpeciesForm';
 export * from './PeopleSearchDropdown/PeopleSearchDropdown';
 export * from './ErrorMessage/ErrorMessage';
-export * from './HomeButton/HomeButtom';
+export * from './HomeButton/HomeButton';

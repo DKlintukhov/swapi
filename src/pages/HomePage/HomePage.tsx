@@ -26,12 +26,12 @@ export function HomePage() {
     }
   }, [page, dispatch]);
 
-  const personSelectedHandl = (person: Person) => {
+  const handlePersonSelect = (person: Person) => {
     dispatch(setPerson(person));
     navigate(`/info/${person.name}`);
   };
 
-  const retryHandle = () => {
+  const handleRetry = () => {
     window.location.reload();
   }
 
@@ -40,10 +40,10 @@ export function HomePage() {
       {isLoading && <div className="home-page__section"><CircularProgress size="10rem" /></div>}
       <div className="home-page__section">
         {!isLoading && isFetching && !error && <CircularProgress size="7rem" />}
-        {!isFetching && !error && <PeopleMenu onPersonSelect={personSelectedHandl} />}
+        {!isFetching && !error && <PeopleMenu onPersonSelect={handlePersonSelect} />}
         {!isFetching && error &&
           <div>
-            <ErrorMessage onRetry={retryHandle} />
+            <ErrorMessage onRetry={handleRetry} />
           </div>}
       </div>
       <div>

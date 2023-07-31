@@ -25,9 +25,9 @@ export function SpeciesForm({ data: species, onSubmit, onDelete }: DetailesFormP
     Object.entries(getDefaultFormValues(species)).forEach(([key, value]) => setValue(key, value));
   }, [species, setValue]);
 
-  const resetHandler = () => reset();
+  const handleReset = () => reset();
 
-  const submitHandler: SubmitHandler<Partial<Species>> = (data) => {
+  const handleSave: SubmitHandler<Partial<Species>> = (data) => {
     if (species) {
       const newspecies: Species = {
         ...species,
@@ -38,7 +38,7 @@ export function SpeciesForm({ data: species, onSubmit, onDelete }: DetailesFormP
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onDelete={onDelete}>
+    <Form onSubmit={handleSubmit(handleSave)} onReset={handleReset} onDelete={onDelete}>
       <TextField label="Name:" size="small" fullWidth variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Language:" size="small" fullWidth variant="outlined" {...register("language", { required: true, min: 1 })} error={!!errors.language} />
       <TextField label="Average Height:" size="small" fullWidth variant="outlined" {...register("averageHeight", { required: true, maxLength: 64 })} error={!!errors.averageHeight} />

@@ -12,15 +12,15 @@ export function PersonCard({ person }: PersonCardProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const saveHandle = (person: Person) => {
+  const handleSave = (person: Person) => {
     dispatch(savePerson(person));
     dispatch(setPerson(person));
   };
 
-  const deleteHandle = () => {
+  const handleDelete = () => {
     dispatch(deletePerson(person));
     navigate('/');
   };
 
-  return <PersonForm data={person} onSubmit={saveHandle} onDelete={deleteHandle} />;
+  return <PersonForm data={person} onSubmit={handleSave} onDelete={handleDelete} />;
 }

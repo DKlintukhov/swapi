@@ -23,24 +23,24 @@ export function PlanetCard({ proxy, onSave }: CardProps<Planet>) {
     }
   }, [planet]);
 
-  const saveHandle = (planet: Planet) => {
+  const handleSave = (planet: Planet) => {
     onSave({ ...proxy, child: planet });
   };
 
-  const deleteHandle = () => {
+  const handleDelete = () => {
     onSave({ ...proxy, child: null });
     fetchPlanet(proxy.id);
   };
 
-  const retryHandle = () => {
+  const handleRetry = () => {
     fetchPlanet(proxy.id);
   };
 
   return (
     <div className="planet-card__container">
       {isFetching && <CircularProgress size="7rem" />}
-      {!isFetching && !error && current && <PlanetForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
-      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+      {!isFetching && !error && current && <PlanetForm data={current} onSubmit={handleSave} onDelete={handleDelete} />}
+      {!isFetching && error && <ErrorMessage onRetry={handleRetry} />}
     </div>
   )
 }

@@ -24,24 +24,24 @@ export function SpeciesCard({ proxy, onSave }: CardProps<Species>) {
     }
   }, [species]);
 
-  const saveHandle = (species: Species) => {
+  const handleSave = (species: Species) => {
     onSave({ ...proxy, child: species });
   };
 
-  const deleteHandle = () => {
+  const handleDelete = () => {
     onSave({ ...proxy, child: null });
     fetchSpecies(proxy.id);
   };
 
-  const retryHandle = () => {
+  const handleRetry = () => {
     fetchSpecies(proxy.id);
   };
 
   return (
     <div className="species-card__container">
       {isFetching && <CircularProgress size="7rem" />}
-      {!isFetching && !error && current && <SpeciesForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
-      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+      {!isFetching && !error && current && <SpeciesForm data={current} onSubmit={handleSave} onDelete={handleDelete} />}
+      {!isFetching && error && <ErrorMessage onRetry={handleRetry} />}
     </div>
   )
 }
