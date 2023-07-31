@@ -2,42 +2,61 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Person } from '../../data-models';
 
 interface PeopleState {
-  all: Person[];
-  saved: Person[];
+  cache: Record<string, Person>;
+  all: Record<string, Person>;
+  saved: Record<string, Person>;
+  currentPage: Person[];
 }
 
 export const initialState: PeopleState = {
-  all: [],
-  saved: [],
+  cache: {},
+  all: {},
+  currentPage: [],
+  saved: Object.entries(localStorage).reduce<Record<string, Person>>((prev, [key, value]) => {
+    prev[key] = JSON.parse(value);
+    return prev;
+  }, {}),
 };
 
 export const people = createSlice({
   name: 'people',
   initialState,
   reducers: {
-    setPeople: (state, { payload }: PayloadAction<Person[]>) => {
-      state.all = payload.map((person) => {
-        const rawPerson = localStorage.getItem(person.url);
-        if (rawPerson) {
-          return JSON.parse(rawPerson);
+    addPeople: (state, { payload }: PayloadAction<Person[]>) => {
+      const newPeople = payload.reduce<Record<string, Person>>((prev, person) => {
+        prev[person.url] = person;
+        return prev;
+      }, {});
+      state.cache = {
+        ...state.cache,
+        ...newPeople,
+      }
+      state.all = {
+        ...newPeople,
+        ...state.saved,
+      }
+    },
+    savePerson: (state, { payload }: PayloadAction<Person>) => {
+      localStorage.setItem(payload.url, JSON.stringify(payload));
+      state.saved[payload.url] = payload;
+      state.all[payload.url] = payload;
+    },
+    deletePerson: (state, { payload }: PayloadAction<Person>) => {
+      localStorage.removeItem(payload.url);
+      delete state.saved[payload.url];
+      state.all[payload.url] = state.cache[payload.url];
+    },
+    addCurrentPage: (state, { payload }: PayloadAction<Person[]>) => {
+      state.currentPage = payload.map((person) => {
+        const saved = state.saved[person.url];
+        if (saved) {
+          return saved;
         }
         return person;
       });
     },
-    savePerson: (state, { payload }: PayloadAction<Person>) => {
-      const rawPerson = localStorage.getItem(payload.url);
-      const foundIdx = state.all.findIndex((el) => el.url === payload.url);
-      const idx = foundIdx === -1 ? 0 : foundIdx;
-      if (!rawPerson) {
-        localStorage.setItem(payload.url, JSON.stringify(payload));
-        state.all[idx] = payload;
-      } else {
-        localStorage.setItem(payload.url, JSON.stringify(payload));
-        state.all[idx] = payload;
-      }
-    },
-    deletePerson: (state, { payload }: PayloadAction<Person>) => {
-      localStorage.removeItem(payload.url);
-    },
+    cleanSaved: (state, _: PayloadAction<void>) => {
+      state.saved = {};
+    }
   },
 });

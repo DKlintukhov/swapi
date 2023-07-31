@@ -12,22 +12,43 @@ import { Fragment, useEffect, useState } from 'react';
 import { useLazySearchPersonQuery } from '../../store/swAPI/swAPI';
 import { useDebounce } from '../../hooks';
 import { PeopleSearchDropdown } from '../PeopleSearchDropdown/PeopleSearchDropdown';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import './PeopleMenu.css';
 
+const filterSaved = (saved: Person[], search: string): Person[] => {
+  return saved.filter((person) => person.name.toLocaleLowerCase().includes(search));
+}
+
+const mergeByName = (a: Person[], b: Person[]): Person[] => {
+  const cache: Record<string, boolean> = {};
+  const all = a.concat(b);
+  const filtered = all.filter((person) => {
+    if (cache[person.name]) {
+      return false;
+    } else {
+      cache[person.name] = true;
+      return true;
+    }
+  });
+  return filtered;
+}
+
 interface PeopleMenuProps {
-  people: Person[];
   onPersonSelect: (person: Person) => void;
 }
 
-export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
+export function PeopleMenu({ onPersonSelect }: PeopleMenuProps) {
+  const peopleOnPage = useSelector(({ people }: RootState) => people.currentPage);
+  const savedPeople = useSelector(({ people }: RootState) => people.saved);
   const [searchPerson, setSearchPerson] = useState('');
   const debounced = useDebounce(searchPerson);
   const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
   const [fetchPerson, { isFetching, data: page }] = useLazySearchPersonQuery();
 
   const searchPersonHandle = (search: string) => {
-    setSearchPerson(search);
-  }
+    setSearchPerson(search.toLocaleLowerCase());
+  };
 
   useEffect(() => {
     if (debounced.length > 1) {
@@ -37,13 +58,9 @@ export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
 
   useEffect(() => {
     if (page) {
-      setFilteredPeople(page.people);
+      setFilteredPeople(mergeByName(filterSaved(Object.values(savedPeople), searchPerson), page.people));
     }
-  }, [page]);
-
-  useEffect(() => {
-    setFilteredPeople(people);
-  }, [people]);
+  }, [page, searchPerson, savedPeople]);
 
   return (
     <div className="people-menu__contaner">
@@ -54,7 +71,7 @@ export function PeopleMenu({ people, onPersonSelect }: PeopleMenuProps) {
         onSelect={onPersonSelect}
       ></PeopleSearchDropdown>
       <List component="nav">
-        {people.map((person, idx) => (
+        {peopleOnPage.map((person, idx) => (
           <Fragment key={idx}>
             <ListItem disablePadding >
               <ListItemButton onClick={() => onPersonSelect(person)}>
