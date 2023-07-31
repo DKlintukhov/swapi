@@ -1,6 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundaryFallback } from './ErrorBoundaryFallback';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('ErrorBoundaryFallback', () => {
   const resetErrorBoundaryMock = jest.fn();
@@ -12,7 +13,7 @@ describe('ErrorBoundaryFallback', () => {
 
   it('should render the fallback UI correctly', () => {
     const { getByText, getByLabelText } = render(
-      <ErrorBoundaryFallback {...fallbackProps} />
+      <BrowserRouter><ErrorBoundaryFallback {...fallbackProps} /></BrowserRouter>
     );
 
     const alertTitle = getByText('Error');
@@ -27,7 +28,7 @@ describe('ErrorBoundaryFallback', () => {
 
   it('should call resetErrorBoundary when close icon is clicked', () => {
     const { getByLabelText } = render(
-      <ErrorBoundaryFallback {...fallbackProps} />
+      <BrowserRouter><ErrorBoundaryFallback {...fallbackProps} /></BrowserRouter>
     );
 
     const closeIcon = getByLabelText('close');

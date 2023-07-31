@@ -1,6 +1,6 @@
 import { CircularProgress, Pagination } from '@mui/material'
 import { useGetPageQuery } from '../../store/swAPI/swAPI'
-import { PeopleMenu } from '../../components';
+import { ErrorMessage, PeopleMenu } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Person } from '../../data-models';
 import { RootState, setPage, setPerson, addPeople, addCurrentPage } from '../../store';
@@ -13,7 +13,7 @@ export function HomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const pageNum = useSelector(({ ui }: RootState) => ui.page);
-  const { isLoading, isFetching, data: page } = useGetPageQuery(pageNum);
+  const { isLoading, isFetching, data: page, error } = useGetPageQuery(pageNum);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     dispatch(setPage(page));
@@ -31,15 +31,23 @@ export function HomePage() {
     navigate(`/info/${person.name}`);
   };
 
+  const retryHandle = () => {
+    window.location.reload();
+  }
+
   return (
     <div className="home-page__container">
       {isLoading && <div className="home-page__section"><CircularProgress size="10rem" /></div>}
       <div className="home-page__section">
-        {!isLoading && isFetching && <CircularProgress size="7rem" />}
-        {!isFetching && <PeopleMenu onPersonSelect={personSelectedHandl} />}
+        {!isLoading && isFetching && !error && <CircularProgress size="7rem" />}
+        {!isFetching && !error && <PeopleMenu onPersonSelect={personSelectedHandl} />}
+        {!isFetching && error &&
+          <div>
+            <ErrorMessage onRetry={retryHandle} />
+          </div>}
       </div>
       <div>
-        {!isLoading && page &&
+        {!isLoading && page && !error &&
           <Pagination
             defaultPage={pageNum}
             count={Math.ceil(page.total / peoplePerPage)}

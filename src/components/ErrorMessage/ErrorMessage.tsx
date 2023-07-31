@@ -11,7 +11,7 @@ export function ErrorMessage({ msg, onRetry }: ErrorMessageProps) {
   return (
     <>
       <Typography variant="h5" color="error"> {text}</Typography>
-      <Button variant="text" role="retry" onClick={onRetry}>Retry</Button>
+      <Button variant="outlined" role="retry" onClick={onRetry}>Retry</Button>
     </>
   )
 }
