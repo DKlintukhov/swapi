@@ -4,7 +4,8 @@ import {
   PlanetCard,
   StarshipCard,
   VehicleCard,
-  SpeciesCard
+  SpeciesCard,
+  HomeButton
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState, savePerson, setPerson } from '../../store';
@@ -12,51 +13,70 @@ import { Container } from '@mui/system';
 import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/material';
 import { ChildProxy, Film, Person, Planet, Species, Starship, Vehicle } from '../../data-models';
 import { mergeProxies } from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import './InfoPage.css';
 
 export function InfoPage() {
   const dispatch = useDispatch();
-  const person = useSelector(({ ui }: RootState) => ui.person as Person);
+  const navigate = useNavigate();
+  const person = useSelector(({ ui }: RootState) => ui.person);
+
+  useEffect(() => {
+    if (!person) {
+      navigate('/');
+    }
+  }, [person, navigate]);
+
+  const save = (person: Person) => {
+    dispatch(setPerson(person));
+    dispatch(savePerson(person));
+  }
 
   const onPlanetSave = (proxy: ChildProxy<Planet>) => {
-    const toSave: Person = { ...person, homeworld: proxy };
-    dispatch(setPerson(toSave));
-    dispatch(savePerson(toSave));
+    if (person) {
+      const toSave: Person = { ...person, homeworld: proxy };
+      save(toSave);
+    }
   }
   const onStarshipSave = (starship: ChildProxy<Starship>) => {
-    const toSave: Person = {
-      ...person, starships: mergeProxies(person.starships, starship)
-    };
-    dispatch(setPerson(toSave));
-    dispatch(savePerson(toSave));
+    if (person) {
+      const toSave: Person = {
+        ...person, starships: mergeProxies(person.starships, starship)
+      };
+      save(toSave);
+    }
   }
   const onFilmSave = (film: ChildProxy<Film>) => {
-    const toSave: Person = {
-      ...person, films: mergeProxies(person.films, film)
-    };
-    dispatch(setPerson(toSave));
-    dispatch(savePerson(toSave));
+    if (person) {
+      const toSave: Person = {
+        ...person, films: mergeProxies(person.films, film)
+      };
+      save(toSave);
+    }
   }
   const onSpeciesSave = (species: ChildProxy<Species>) => {
-    const toSave: Person = {
-      ...person, species: mergeProxies(person.species, species)
-    };
-    dispatch(setPerson(toSave));
-    dispatch(savePerson(toSave));
+    if (person) {
+      const toSave: Person = {
+        ...person, species: mergeProxies(person.species, species)
+      };
+      save(toSave);
+    }
   }
   const onVehicleSave = (vehicle: ChildProxy<Vehicle>) => {
-    const toSave: Person = {
-      ...person, vehicles: mergeProxies(person.vehicles, vehicle)
-    };
-    dispatch(setPerson(toSave));
-    dispatch(savePerson(toSave));
+    if (person) {
+      const toSave: Person = {
+        ...person, vehicles: mergeProxies(person.vehicles, vehicle)
+      };
+      save(toSave);
+    }
   }
 
   return (
     <Container>
       <Accordion defaultExpanded={true}>
         <AccordionSummary>
-          <Typography>{person.name}</Typography>
+          {person && <Typography>{person.name}</Typography>}
         </AccordionSummary>
         <AccordionDetails>
           {person && <PersonCard person={person} />}
@@ -115,6 +135,7 @@ export function InfoPage() {
           )}
         </AccordionDetails>
       </Accordion >
+      <div className="info-page__home-btn"><HomeButton/></div>
     </Container >
   )
 }
