@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import { HomeButton } from './HomeButtom';
+import { HomeButton } from './HomeButton';
 import { BrowserRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 

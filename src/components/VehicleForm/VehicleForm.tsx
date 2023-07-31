@@ -27,9 +27,9 @@ export function VehicleForm({ data: vehicle, onSubmit, onDelete }: DetailesFormP
     Object.entries(getDefaultFormValues(vehicle)).forEach(([key, value]) => setValue(key, value));
   }, [vehicle, setValue]);
 
-  const resetHandler = () => reset();
+  const handleReset = () => reset();
 
-  const submitHandler: SubmitHandler<Partial<Vehicle>> = (data) => {
+  const handleSave: SubmitHandler<Partial<Vehicle>> = (data) => {
     if (vehicle) {
       const newVehicle: Vehicle = {
         ...vehicle,
@@ -40,7 +40,7 @@ export function VehicleForm({ data: vehicle, onSubmit, onDelete }: DetailesFormP
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onDelete={onDelete}>
+    <Form onSubmit={handleSubmit(handleSave)} onReset={handleReset} onDelete={onDelete}>
       <TextField label="Name:" size="small" fullWidth variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Vehicle Class:" size="small" fullWidth variant="outlined" {...register("vehicleClass", { required: true, min: 1 })} error={!!errors.vehicleClass} />
       <TextField label="Model:" size="small" fullWidth variant="outlined" {...register("model", { required: true, maxLength: 64 })} error={!!errors.model} />

@@ -46,7 +46,7 @@ export function PeopleMenu({ onPersonSelect }: PeopleMenuProps) {
   const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
   const [fetchPerson, { isFetching, data: page }] = useLazySearchPersonQuery();
 
-  const searchPersonHandle = (search: string) => {
+  const handleSearchPerson = (search: string) => {
     setSearchPerson(search.toLocaleLowerCase());
   };
 
@@ -67,7 +67,7 @@ export function PeopleMenu({ onPersonSelect }: PeopleMenuProps) {
       <PeopleSearchDropdown
         people={filteredPeople}
         isLoading={isFetching}
-        onSearch={searchPersonHandle}
+        onSearch={handleSearchPerson}
         onSelect={onPersonSelect}
       ></PeopleSearchDropdown>
       <List component="nav">

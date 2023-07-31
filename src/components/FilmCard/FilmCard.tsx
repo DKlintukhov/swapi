@@ -23,22 +23,22 @@ export function FilmCard({ proxy, onSave }: CardProps<Film>) {
     }
   }, [film]);
 
-  const saveHandle = (film: Film) => onSave({ ...proxy, child: film });
+  const handleSave = (film: Film) => onSave({ ...proxy, child: film });
 
-  const deleteHandle = () => {
+  const handleDelete = () => {
     onSave({ ...proxy, child: null });
     fetchFilm(proxy.id);
   };
 
-  const retryHandle = () => {
+  const handleRetry = () => {
     fetchFilm(proxy.id);
   };
 
   return (
     <div className="film-card__container">
       {isFetching && <CircularProgress size="7rem" />}
-      {!isFetching && !error && current && <FilmForm data={current} onSubmit={saveHandle} onDelete={deleteHandle} />}
-      {!isFetching && error && <ErrorMessage onRetry={retryHandle} />}
+      {!isFetching && !error && current && <FilmForm data={current} onSubmit={handleSave} onDelete={handleDelete} />}
+      {!isFetching && error && <ErrorMessage onRetry={handleRetry} />}
     </div>
   )
 }

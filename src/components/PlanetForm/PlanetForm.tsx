@@ -25,9 +25,9 @@ export function PlanetForm({ data: planet, onSubmit, onDelete }: DetailesFormPro
     Object.entries(getDefaultFormValues(planet)).forEach(([key, value]) => setValue(key, value));
   }, [planet, setValue]);
 
-  const resetHandler = () => reset();
+  const handleReset = () => reset();
 
-  const submitHandler: SubmitHandler<Partial<Planet>> = (data) => {
+  const handleSave: SubmitHandler<Partial<Planet>> = (data) => {
     const newPlanet: Planet = {
       ...planet,
       ...data,
@@ -36,7 +36,7 @@ export function PlanetForm({ data: planet, onSubmit, onDelete }: DetailesFormPro
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onDelete={onDelete}>
+    <Form onSubmit={handleSubmit(handleSave)} onReset={handleReset} onDelete={onDelete}>
       <TextField label="Name:" size="small" fullWidth variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Climate:" size="small" fullWidth variant="outlined" {...register("climate", { required: true, maxLength: 64 })} error={!!errors.climate} />
       <TextField label="Diameter:" size="small" fullWidth variant="outlined" {...register("diameter", { required: true, maxLength: 64 })} error={!!errors.diameter} />

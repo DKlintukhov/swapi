@@ -33,13 +33,13 @@ export function InfoPage() {
     dispatch(savePerson(person));
   }
 
-  const onPlanetSave = (proxy: ChildProxy<Planet>) => {
+  const handlePlanetSave = (proxy: ChildProxy<Planet>) => {
     if (person) {
       const toSave: Person = { ...person, homeworld: proxy };
       save(toSave);
     }
   }
-  const onStarshipSave = (starship: ChildProxy<Starship>) => {
+  const handleStarshipSave = (starship: ChildProxy<Starship>) => {
     if (person) {
       const toSave: Person = {
         ...person, starships: mergeProxies(person.starships, starship)
@@ -47,7 +47,7 @@ export function InfoPage() {
       save(toSave);
     }
   }
-  const onFilmSave = (film: ChildProxy<Film>) => {
+  const handleFilmSave = (film: ChildProxy<Film>) => {
     if (person) {
       const toSave: Person = {
         ...person, films: mergeProxies(person.films, film)
@@ -55,7 +55,7 @@ export function InfoPage() {
       save(toSave);
     }
   }
-  const onSpeciesSave = (species: ChildProxy<Species>) => {
+  const handleSpeciesSave = (species: ChildProxy<Species>) => {
     if (person) {
       const toSave: Person = {
         ...person, species: mergeProxies(person.species, species)
@@ -63,7 +63,7 @@ export function InfoPage() {
       save(toSave);
     }
   }
-  const onVehicleSave = (vehicle: ChildProxy<Vehicle>) => {
+  const handleVehicleSave = (vehicle: ChildProxy<Vehicle>) => {
     if (person) {
       const toSave: Person = {
         ...person, vehicles: mergeProxies(person.vehicles, vehicle)
@@ -88,7 +88,7 @@ export function InfoPage() {
           <Typography>Homeworld</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {person && <PlanetCard proxy={person.homeworld} onSave={onPlanetSave}></PlanetCard>}
+          {person && <PlanetCard proxy={person.homeworld} onSave={handlePlanetSave}></PlanetCard>}
         </AccordionDetails>
       </Accordion>
 
@@ -98,7 +98,7 @@ export function InfoPage() {
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
           {person && person.films.map((proxy) =>
-            <FilmCard key={proxy.id} proxy={proxy} onSave={onFilmSave}></FilmCard>
+            <FilmCard key={proxy.id} proxy={proxy} onSave={handleFilmSave}></FilmCard>
           )}
         </AccordionDetails>
       </Accordion>
@@ -109,7 +109,7 @@ export function InfoPage() {
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
           {person && person.starships.map((proxy) =>
-            <StarshipCard key={proxy.id} proxy={proxy} onSave={onStarshipSave}></StarshipCard>
+            <StarshipCard key={proxy.id} proxy={proxy} onSave={handleStarshipSave}></StarshipCard>
           )}
         </AccordionDetails>
       </Accordion >
@@ -120,7 +120,7 @@ export function InfoPage() {
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
           {person && person.species.map((proxy) =>
-            <SpeciesCard key={proxy.id} proxy={proxy} onSave={onSpeciesSave}></SpeciesCard>
+            <SpeciesCard key={proxy.id} proxy={proxy} onSave={handleSpeciesSave}></SpeciesCard>
           )}
         </AccordionDetails>
       </Accordion >
@@ -131,7 +131,7 @@ export function InfoPage() {
         </AccordionSummary>
         <AccordionDetails className="info-page__container">
           {person && person.vehicles.map((proxy) =>
-            <VehicleCard key={proxy.id} proxy={proxy} onSave={onVehicleSave}></VehicleCard>
+            <VehicleCard key={proxy.id} proxy={proxy} onSave={handleVehicleSave}></VehicleCard>
           )}
         </AccordionDetails>
       </Accordion >

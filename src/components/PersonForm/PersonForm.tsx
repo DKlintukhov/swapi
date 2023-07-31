@@ -24,9 +24,9 @@ export function PersonForm({ data: person, onSubmit, onDelete }: DetailesFormPro
     Object.entries(getDefaultFormValues(person)).forEach(([key, value]) => setValue(key, value));
   }, [person, setValue]);
 
-  const resetHandler = () => reset();
+  const handleReset = () => reset();
 
-  const submitHandler: SubmitHandler<Partial<Person>> = (data) => {
+  const handleSave: SubmitHandler<Partial<Person>> = (data) => {
     const newPerson: Person = {
       ...person,
       ...data,
@@ -37,7 +37,7 @@ export function PersonForm({ data: person, onSubmit, onDelete }: DetailesFormPro
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitHandler)} onReset={resetHandler} onDelete={onDelete}>
+    <Form onSubmit={handleSubmit(handleSave)} onReset={handleReset} onDelete={onDelete}>
       <TextField label="Name:" size="small" fullWidth variant="outlined" {...register("name", { required: true, maxLength: 64 })} error={!!errors.name} />
       <TextField label="Gender:" size="small" fullWidth variant="outlined" {...register("gender", { required: true, maxLength: 64 })} error={!!errors.gender} />
       <TextField label="Birth Year:" size="small" fullWidth variant="outlined" {...register("birthYear", { required: true, maxLength: 64 })} error={!!errors.birthYear} />
