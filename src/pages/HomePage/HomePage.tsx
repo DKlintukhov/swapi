@@ -3,18 +3,17 @@ import { useGetPageQuery } from '../../store/swAPI/swAPI'
 import { PeopleMenu } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Person } from '../../data-models';
-import { RootState, setPage, setPerson, setPeople } from '../../store';
+import { RootState, setPage, setPerson, addPeople, addCurrentPage } from '../../store';
 import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
 import { useEffect } from 'react';
+import './HomePage.css';
 
 export function HomePage() {
   const peoplePerPage = 10;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentPage = useSelector(({ ui }: RootState) => ui.page);
-  const allPeople = useSelector(({ people }: RootState) => people.all);
-  const { isLoading, isFetching, data: page } = useGetPageQuery(currentPage);
+  const pageNum = useSelector(({ ui }: RootState) => ui.page);
+  const { isLoading, isFetching, data: page } = useGetPageQuery(pageNum);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     dispatch(setPage(page));
@@ -22,11 +21,12 @@ export function HomePage() {
 
   useEffect(() => {
     if (page) {
-      dispatch(setPeople(page!.people));
+      dispatch(addPeople(page.people));
+      dispatch(addCurrentPage(page.people));
     }
   }, [page, dispatch]);
 
-  const personSelectedHandler = (person: Person) => {
+  const personSelectedHandl = (person: Person) => {
     dispatch(setPerson(person));
     navigate(`/info/${person.name}`);
   };
@@ -36,12 +36,12 @@ export function HomePage() {
       {isLoading && <div className="home-page__section"><CircularProgress size="10rem" /></div>}
       <div className="home-page__section">
         {!isLoading && isFetching && <CircularProgress size="7rem" />}
-        {!isFetching && <PeopleMenu people={allPeople} onPersonSelect={personSelectedHandler} />}
+        {!isFetching && <PeopleMenu onPersonSelect={personSelectedHandl} />}
       </div>
       <div>
         {!isLoading && page &&
           <Pagination
-            defaultPage={currentPage}
+            defaultPage={pageNum}
             count={Math.ceil(page.total / peoplePerPage)}
             variant="outlined"
             shape='rounded'

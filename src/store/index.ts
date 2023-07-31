@@ -14,4 +14,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export const { setPerson, setPage } = ui.actions;
-export const { setPeople, savePerson, deletePerson } = people.actions;
+export const { addPeople, savePerson, deletePerson, addCurrentPage, cleanSaved } = people.actions;
